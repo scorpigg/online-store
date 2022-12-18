@@ -1,0 +1,11 @@
+@mixin media-laptop {
+  @media (max-width:$laptop-breakpoint) { @content; }
+};
+
+@mixin media-tablet {
+  @media (max-width:$tablet-breakpoint) { @content; }
+};
+
+@mixin media-mobile {
+  @media (max-width:$mobile-breakpoint) { @content; }
+};
