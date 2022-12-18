@@ -1,15 +1,17 @@
 html {
   font-size: 10px;
-  color: #000;
+  color: $color-text-primary;
   box-sizing: border-box;
 }
 
 body {
   font-size: 1.6rem;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
   margin: 0;
 }
@@ -31,7 +33,7 @@ img {
   object-fit: cover;
 }
 
-.visibility-hidden{
+.visibility-hidden {
   position: absolute;
   height: 0;
   width: 0;
