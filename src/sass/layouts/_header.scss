@@ -1,0 +1,58 @@
+header {
+  display: flex;
+  justify-content: space-between;
+
+  .header__left {
+    display: flex;
+    align-items: center;
+  }
+
+  .header__right {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.header__info {
+  padding-left: 20px;
+}
+
+h3 {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2rem;
+  text-transform: uppercase;
+  color: $color-text-primary;
+}
+
+.header__tagline {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: $color-text-additional;
+}
+
+.header__cart:hover {
+  cursor: pointer;
+}
+
+.header__cart:hover > path {
+  stroke: $color-btn;
+}
+
+.header__price {
+  margin-left: 15px;
+}.header__cart:hover {
+  cursor: pointer;
+}
+
+.header__cart:hover > path {
+  stroke: $color-btn;
+}
+
+.header__price {
+  margin-left: 15px;
+}
+

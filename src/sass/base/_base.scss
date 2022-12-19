@@ -2,6 +2,7 @@ html {
   font-size: 10px;
   color: $color-text-primary;
   box-sizing: border-box;
+  background-color: $color-bg-page;
 }
 
 body {
@@ -24,7 +25,11 @@ ul {
 
 a {
   text-decoration: none;
-  color: #fff;
+  color: $color-text-primary;
+}
+
+a:hover {
+  color: $color-btn;
 }
 
 img {
@@ -38,4 +43,9 @@ img {
   height: 0;
   width: 0;
   overflow: hidden;
+}
+
+hr {
+  border: 1px solid #D3D3D3;
+  margin: 30px 0;
 }
