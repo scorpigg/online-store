@@ -1,3 +1,9 @@
+:root {
+  --select-border: $color-btn;
+  --select-focus: $color-border;
+  --select-arrow: $color-btn;
+}
+
 html {
   font-size: 10px;
   color: $color-text-primary;
@@ -46,6 +52,6 @@ img {
 }
 
 hr {
-  border: 1px solid #D3D3D3;
+  border: 1px solid #d3d3d3;
   margin: 30px 0;
 }
