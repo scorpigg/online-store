@@ -1,4 +1,4 @@
-interface IProducts {
+export interface IProducts {
   id: number;
   title: string;
   description: string;
@@ -14,7 +14,7 @@ interface IProducts {
   images: Array<string>;
 }
 
-const products: Array<IProducts> = [
+export const products: Array<IProducts> = [
   {
     id: 1,
     title: 'Lamborghini Urus 12V Kids Electric Ride',
@@ -149,7 +149,7 @@ const products: Array<IProducts> = [
     category: 'realcar',
     bodyStyle: 'coupe',
     thumbnail: '',
-    images: ['Mercedes_AMG_01.jpg', 'Mercedes_AMG_02.jpg', 'Mercedes_AMG_03.jpg'],
+    images: ['Mercedes_AMG_01.webp', 'Mercedes_AMG_02.webp', 'Mercedes_AMG_03.webp'],
   },
   {
     id: 9,
@@ -186,5 +186,3 @@ const products: Array<IProducts> = [
     images: ['Vilac_vintage_kids_01.webp', 'Vilac_vintage_kids_02.webp', 'Vilac_vintage_kids_03.jpg'],
   },
 ];
-
-export default products;
