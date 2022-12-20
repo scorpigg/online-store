@@ -10,9 +10,21 @@ main {
 
 .items__panel {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 40px;
+
+  select {
+    width: 100%;
+    height: 40px;
+    border: 1px solid $color-border;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-size: 1.6rem;
+    color: $color-text-additional;
+    cursor: pointer;
+  }
 }
 
 .items__title {
@@ -20,23 +32,18 @@ main {
   font-size: 2rem;
   color: $color-text-additional;
   padding-right: 10px;
+  margin-bottom: 5px;
 }
 
-select {
-  width: 100%;
-  height: 40px;
-  border: 1px solid $color-border;
-  border-radius: 5px;
-  padding: 5px 15px;
-  font-size: 1.6rem;
-  color: $color-text-additional;
-  cursor: pointer;
+.items__sort {
+  margin-bottom: 5px;
 }
 
 .items__view {
   display: flex;
   width: 85px;
   justify-content: space-between;
+  margin-bottom: 5px;
 }
 
 .search-block {
@@ -45,6 +52,7 @@ select {
   border: 1px solid $color-border;
   border-radius: 5px;
   padding: 0 15px;
+  margin-bottom: 5px;
 
   input {
     border: 0;
@@ -64,11 +72,19 @@ select {
   }
 }
 
-.view-active > rect {
-  fill: $color-btn-check;
-  stroke: $color-btn-check;
+.view-list {
+  width: 40px;
+  height: 40px;
+  background-image: url('../../../public/img/view-list.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 5px;
 }
 
-.view-active > rect:first-child {
-  fill: white;
+.view-table {
+  width: 40px;
+  height: 40px;
+  background-image: url('../../../public/img/view-table-active.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
