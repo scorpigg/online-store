@@ -3,7 +3,7 @@ import React from 'react';
 const SortList = () => {
   return (
     <select defaultValue={'default'}>
-      <option value="default" selected disabled hidden>
+      <option value="default" disabled hidden>
         Sort by...
       </option>
       <option value="price-asc">Sort by price ASC</option>
