@@ -4,7 +4,7 @@ export interface IProducts {
   description: string;
   price: number;
   color: string;
-  discountPercentage: number;
+  discountPercentage?: number;
   rating: number;
   stock: number;
   brand: Array<string>;
@@ -329,7 +329,6 @@ export const products: Array<IProducts> = [
       accomplished choice.`,
     price: 46000,
     color: 'white',
-    discountPercentage: 2,
     rating: 4.8,
     stock: 16,
     brand: ['Range Rover'],
@@ -346,7 +345,6 @@ export const products: Array<IProducts> = [
     that all come together for a great driving adventure.`,
     price: 575,
     color: 'red',
-    discountPercentage: 10,
     rating: 4.9,
     stock: 67,
     brand: ['Range Rover'],
@@ -363,7 +361,6 @@ export const products: Array<IProducts> = [
       Tinted rear windows. Officially licensed product. Has opening gas tank cover.`,
     price: 140,
     color: 'red',
-    discountPercentage: 20,
     rating: 4.8,
     stock: 109,
     brand: ['LCD Models', 'Range Rover'],
@@ -379,7 +376,6 @@ export const products: Array<IProducts> = [
       like an automotive super-yacht.`,
     price: 171000,
     color: 'brown',
-    discountPercentage: 2,
     rating: 4.8,
     stock: 12,
     brand: ['Range Rover'],
