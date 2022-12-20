@@ -124,31 +124,8 @@ function App() {
               <SortList />
             </div>
             <div className="items__view">
-              <svg width="40" height="40" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="0.5" y="0.5" width="43" height="43" rx="4.5" fill="white" stroke="#D3D3D3" />
-                <rect x="7" y="8" width="29.6744" height="5.37209" rx="2" fill="#D9D9D9" />
-                <rect x="7" y="19.6395" width="29.6744" height="5.37209" rx="2" fill="#D9D9D9" />
-                <rect x="7" y="31.2791" width="29.6744" height="5.37209" rx="2" fill="#D9D9D9" />
-              </svg>
-              <svg
-                className="view-active"
-                width="40"
-                height="40"
-                viewBox="0 0 44 44"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect x="0.5" y="0.5" width="43" height="43" rx="4.5" fill="white" stroke="#D9D9D9" />
-                <rect x="9" y="10" width="5.57756" height="5.64022" rx="2" fill="#D9D9D9" />
-                <rect x="19.2112" y="10" width="5.57756" height="5.64022" rx="2" fill="#D9D9D9" />
-                <rect x="29.4224" y="10" width="5.57756" height="5.64022" rx="2" fill="#D9D9D9" />
-                <rect x="9" y="19.5016" width="5.57756" height="5.64022" rx="2" fill="#D9D9D9" />
-                <rect x="19.2112" y="19.5016" width="5.57756" height="5.64022" rx="2" fill="#D9D9D9" />
-                <rect x="29.4224" y="19.5016" width="5.57756" height="5.64022" rx="2" fill="#D9D9D9" />
-                <rect x="9" y="29.0032" width="5.57756" height="5.64022" rx="2" fill="#D9D9D9" />
-                <rect x="19.2112" y="29.0032" width="5.57756" height="5.64022" rx="2" fill="#D9D9D9" />
-                <rect x="29.4224" y="29.0032" width="5.57756" height="5.64022" rx="2" fill="#D9D9D9" />
-              </svg>
+              <div className="view-list"></div>
+              <div className="view-table"></div>
             </div>
             <div className="search-block">
               <img src="img/search.svg" alt="Search" />
