@@ -34,6 +34,10 @@ h3 {
   color: $color-text-additional;
 }
 
+.header__cart > path {
+  @extend %transition;
+}
+
 .header__cart:hover {
   cursor: pointer;
 }

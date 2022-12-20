@@ -12,6 +12,11 @@
   cursor: pointer;
   color: $color-light;
   font-weight: 500;
+  @extend %transition;
+
+  &:hover {
+    background: linear-gradient(180deg, #64ef7d 0%, #2b943e 100%);
+  }
 }
 
 .filter__btn-reset {

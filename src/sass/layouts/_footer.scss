@@ -12,6 +12,14 @@ footer {
   .footer__center {
     display: flex;
     align-items: center;
+
+    img {
+      @extend %transition;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
   }
 
   .footer__right {
@@ -26,5 +34,4 @@ footer {
   li {
     padding-bottom: 5px;
   }
-
 }
