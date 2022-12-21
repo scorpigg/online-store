@@ -1,15 +1,10 @@
-.items {
-  padding-left: 20px;
-  width: 100%;
-  justify-content: space-between;
-}
-
 .items__panel {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 40px;
+  width: 100%;
 
   select {
     position: relative;
@@ -74,8 +69,7 @@
     font-size: 1.6rem;
     border: 1px solid $color-border;
     border-radius: 5px;
-    padding: 0 15px;
-    padding-left: 35px;
+    padding: 0 30px;
     cursor: pointer;
     @extend %transition;
 
@@ -93,6 +87,38 @@
     width: 15px;
     height: 15px;
     margin-right: 10px;
+  }
+
+  .search__reset {
+    display: block;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    z-index: 11;
+    @extend %transition;
+
+    &:hover > .close-line {
+      background-color: $color-btn-check;
+      cursor: pointer;
+    }
+  }
+
+  .close-line {
+    display: block;
+    position: absolute;
+    height: 2px;
+    width: 20px;
+    background: $color-text-additional-light;
+  }
+
+  .close-line:first-child {
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .close-line:last-child {
+    transform: translateY(-50%) rotate(-45deg);
   }
 }
 
