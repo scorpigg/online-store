@@ -1,29 +1,22 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Header } from './components/Header';
-
-import { Footer } from './components/Footer';
-
+import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import { Basket } from './components/Basket';
 import { Home } from './components/Home';
 import { NotFound } from './components/NotFound';
+import RootLayout from './components/RootLayout';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<RootLayout />}>
+      <Route index element={<Home />} />
+      <Route path="basket" element={<Basket />} />
+      <Route path="*" element={<NotFound />} />
+    </Route>
+  )
+);
 
 function App() {
-  return (
-    <BrowserRouter>
-      <div className="wrapper">
-        <Header />
-        <hr />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="basket" element={<Basket />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <hr />
-        <Footer />
-      </div>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
