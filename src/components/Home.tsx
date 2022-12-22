@@ -4,6 +4,8 @@ import { Filter } from './Filter';
 import { IProducts, products } from '../carBase';
 import { ItemsPanel } from './ItemsPanel';
 import { useLocation } from 'react-router-dom';
+import { Header } from './Header';
+import { Footer } from './Footer';
 
 export function Home() {
   const search = useLocation().search;
@@ -28,16 +30,22 @@ export function Home() {
   }
 
   return (
-    <main>
-      <Filter />
-      <div className="main-container">
-        <ItemsPanel />
-        <div className="cards">
-          {productsShow.map((car) => (
-            <Card {...car} key={car.id} />
-          ))}
+    <div className="wrapper">
+      <Header />
+      <hr />
+      <main>
+        <Filter />
+        <div className="main-container">
+          <ItemsPanel />
+          <div className="cards">
+            {productsShow.map((car) => (
+              <Card {...car} key={car.id} />
+            ))}
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+      <hr />
+      <Footer />
+    </div>
   );
 }
