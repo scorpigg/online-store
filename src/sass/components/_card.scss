@@ -95,12 +95,14 @@
 .card__add-to-cart {
   width: 32px;
   height: 32px;
-  background: url('../../../public/img/btn-add.svg') no-repeat center;
+  background-image: url('../../../public/img/btn-add.svg');
+  background-repeat: no-repeat;
+  background-position: center;
   border: none;
   cursor: pointer;
   @extend %transition;
 
   &:hover {
-    background: url('../../../public/img/btn-add-active.svg') no-repeat center;
+    background-image: url('../../../public/img/btn-add-active.svg');
   }
 }

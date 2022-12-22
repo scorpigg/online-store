@@ -8,8 +8,10 @@ header {
   }
 
   .header__right {
+    position: relative;
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
 }
 
@@ -53,14 +55,25 @@ h3 {
   color: $color-text-additional;
 }
 
-.header__cart:hover {
-  cursor: pointer;
-}
-
 .header__cart:hover > path {
   stroke: $color-btn;
 }
 
 .header__price {
   margin-left: 15px;
+}
+
+.header__items-count {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 1.4rem;
+  color: $color-light;
+  background-color: $color-btn-check;
+  border-radius: 50%;
 }
