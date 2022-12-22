@@ -1,31 +1,22 @@
 import React from 'react';
-import { Header } from './components/Header';
-import { Card } from './components/Card';
-import { Filter } from './components/Filter';
-import { products } from './carBase';
-import { Footer } from './components/Footer';
-import { ItemsPanel } from './components/ItemsPanel';
+import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from 'react-router-dom';
+import { Basket } from './components/Basket';
+import { Home } from './components/Home';
+import { NotFound } from './components/NotFound';
+import RootLayout from './components/RootLayout';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<RootLayout />}>
+      <Route index element={<Home />} />
+      <Route path="basket" element={<Basket />} />
+      <Route path="*" element={<NotFound />} />
+    </Route>
+  )
+);
 
 function App() {
-  return (
-    <div className="wrapper">
-      <Header />
-      <hr />
-      <main>
-        <Filter />
-        <div className="main-container">
-          <ItemsPanel />
-          <div className="cards">
-            {products.map((car) => (
-              <Card {...car} key={car.id} />
-            ))}
-          </div>
-        </div>
-      </main>
-      <hr />
-      <Footer />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
