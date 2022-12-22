@@ -1,14 +1,18 @@
 import React from 'react';
+import { FilterCat } from './Filter-Category';
 
 export function Filter() {
   return (
     <form className="filter">
       <h4 className="filter__title">Filter</h4>
       <div className="filter__container">
-        <ul className="filter__categories">
+        {/* <ul className="filter__categories">
+          {products.map(({category}, index) => {
+
+          })}
           <h5>Category</h5>
           <li>
-            <input type="checkbox" id="real-car" />
+            <input type="checkbox" id="real-car" checked={isChecked} onChange={handleOnChange} />
             <label htmlFor="real-car">Real car</label>
           </li>
           <li>
@@ -19,7 +23,8 @@ export function Filter() {
             <input type="checkbox" id="scale-car" />
             <label htmlFor="scale-car">Scale car</label>
           </li>
-        </ul>
+        </ul> */}
+        <FilterCat />
         <ul className="filter__brand">
           <h5>Brand</h5>
           <li>
