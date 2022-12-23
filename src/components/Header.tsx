@@ -1,22 +1,33 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { IProducts } from '../carBase';
 
-export function Header(props: { cartItems: {}[] }) {
+type headerProps = {
+  cartItems: IProducts[];
+};
+
+export function Header(props: headerProps) {
+  let sum = 0;
+
+  props.cartItems.forEach((el) => {
+    sum += el.price;
+  });
+
   return (
     <header>
       <div className="header__left">
-        <NavLink to="/">
+        <Link to="/">
           <img src="img/logo.svg" alt="logo" width="121" height="37"></img>
-        </NavLink>
+        </Link>
         <div className="header__info">
           <h3>
-            <NavLink to="/">Carfun</NavLink>
+            <Link to="/">Carfun</Link>
           </h3>
           <span className="header__tagline">Buy your dream car</span>
         </div>
       </div>
-      <div className="header__right">
-        <NavLink to="basket">
+      <Link to="basket">
+        <div className="header__right">
           <svg
             className="header__cart"
             width="34"
@@ -53,10 +64,11 @@ export function Header(props: { cartItems: {}[] }) {
               strokeLinejoin="round"
             />
           </svg>
-        </NavLink>
-        <span className="header__items-count">{props.cartItems.length}</span>
-        <span className="header__price">€1205</span>
-      </div>
+
+          <span className="header__items-count">{props.cartItems.length}</span>
+          <span className="header__price">{sum}</span>
+        </div>
+      </Link>
     </header>
   );
 }
