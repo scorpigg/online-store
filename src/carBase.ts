@@ -1,4 +1,5 @@
 export interface IProducts {
+  current?: Array<IProducts>;
   id: number;
   title: string;
   description: string;
@@ -16,7 +17,7 @@ export interface IProducts {
 
 export const products: Array<IProducts> = [
   {
-    id: 2,
+    id: 1,
     title: 'Lamborghini Urus',
     description: `Lamborghini Urus is the first Super Sport Utility Vehicle in the world, merging the soul of
       a super sports car with the practical functionality of an SUV.`,
@@ -32,7 +33,7 @@ export const products: Array<IProducts> = [
     images: ['Lamborghini_Urus_01.webp', 'Lamborghini_Urus_02.webp', 'Lamborghini_Urus_03.webp'],
   },
   {
-    id: 1,
+    id: 2,
     title: 'Lamborghini Urus 12V Kids Electric Ride',
     // https://www.outdoortoys.co.uk/licensed-lamborghini-urus-12v-ride-on-children-s-electric-suv
     description: 'This sporty machine a real head turner that will grab the attention of anyone who sees it drive by.',

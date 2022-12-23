@@ -1,38 +1,34 @@
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { products } from './../carBase';
 
-type obj = {
-  [key: number]: string;
-};
-
-export function FilterCat() {
-  // сreate array of unique category values
+export function FilterBrand() {
   const catArr: Array<string> = [];
   products.forEach((car) => {
-    catArr.push(car.category);
+    catArr.push(car.brand[0]);
   });
   const cat = Array.from(new Set(catArr));
 
   const navigate = useNavigate();
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  searchParams.delete('cat');
-
   const [checkedState, setCheckedState] = useState(new Array(cat.length).fill(false));
-  const handleOnChange = (position: number) => {
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  searchParams.delete('brand');
+
+  const handleOnChangeBrand = (position: number) => {
     const updatedCheckedState = checkedState.map((item, index) => (index === position ? !item : item));
-    const obj: obj = { 0: 'Real car', 1: 'Kids car', 2: 'Scale car' };
     const res: Array<string> = [];
     updatedCheckedState.forEach((elem, index) => {
       if (elem) {
-        res.push(obj[index]);
+        res.push(cat[index]);
       }
     });
 
-    if (res.length > 0 || searchParams.get('brand')) {
+    if (res.length > 0 || searchParams.get('cat')) {
       if (res.length > 0) {
-        searchParams.set('cat', JSON.stringify(res));
+        searchParams.set('brand', JSON.stringify(res));
       }
       setSearchParams(searchParams);
     } else {
@@ -44,20 +40,20 @@ export function FilterCat() {
   };
 
   return (
-    <ul className="filter__categories">
-      <h5>Category</h5>
+    <ul className="filter__brand">
+      <h5>Brand</h5>
       {cat.map((elem, index) => {
         return (
-          <li key={index}>
+          <li key={index + 3}>
             <input
               type="checkbox"
-              id={`custom-checkbox-${index}`}
+              id={`custom-checkbox-${index + 3}`}
               name={elem}
               value={elem}
               checked={checkedState[index]}
-              onChange={() => handleOnChange(index)}
+              onChange={() => handleOnChangeBrand(index)}
             />
-            <label htmlFor={`custom-checkbox-${index}`}>{elem}</label>
+            <label htmlFor={`custom-checkbox-${index + 3}`}>{elem}</label>
           </li>
         );
       })}

@@ -1,45 +1,27 @@
 import React from 'react';
+// import { useNavigate } from 'react-router-dom';
 import { FilterCat } from './Filter-Category';
+import { FilterBrand } from './Filter-Brand';
 
 export function Filter() {
+  //   const navigate = useNavigate();
+  //   const doReset = () => {
+  //     window.location.reload();
+  //     navigate({
+  //       pathname: '/',
+  //     });
+  //   };
+
+  // function doReset() {
+  //   window.location.reload();
+  // }
+
   return (
     <form className="filter">
       <h4 className="filter__title">Filter</h4>
       <div className="filter__container">
-        {/* <ul className="filter__categories">
-          {products.map(({category}, index) => {
-
-          })}
-          <h5>Category</h5>
-          <li>
-            <input type="checkbox" id="real-car" checked={isChecked} onChange={handleOnChange} />
-            <label htmlFor="real-car">Real car</label>
-          </li>
-          <li>
-            <input type="checkbox" id="kids-car" />
-            <label htmlFor="kids-car">Kids car</label>
-          </li>
-          <li>
-            <input type="checkbox" id="scale-car" />
-            <label htmlFor="scale-car">Scale car</label>
-          </li>
-        </ul> */}
         <FilterCat />
-        <ul className="filter__brand">
-          <h5>Brand</h5>
-          <li>
-            <input type="checkbox" id="lamborghini" />
-            <label htmlFor="lamborghini">Lamborghini</label>
-          </li>
-          <li>
-            <input type="checkbox" id="maisto" />
-            <label htmlFor="maisto">Maisto</label>
-          </li>
-          <li>
-            <input type="checkbox" id="dakott" />
-            <label htmlFor="dakott">Dakott</label>
-          </li>
-        </ul>
+        <FilterBrand />
         <div className="filter__price">
           <h5>Price</h5>
           <div className="filter__bar">
@@ -64,8 +46,17 @@ export function Filter() {
             <p>200</p>
           </div>
         </div>
-        <button className="btn filter__btn-reset">Reset filters</button>
-        <button className="btn">Copy link</button>
+        <button className="btn filter__btn-reset" type="reset">
+          Reset filters
+        </button>
+        <button
+          className="btn"
+          onClick={() => {
+            navigator.clipboard.writeText(window.location.href);
+          }}
+        >
+          Copy link
+        </button>
       </div>
     </form>
   );
