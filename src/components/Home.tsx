@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from './Card';
 import { Filter } from './Filter';
 import { IProducts, products } from '../carBase';
@@ -29,18 +29,41 @@ export function Home() {
     }
   }
 
+  const [cartItems, setCartItems] = useState<IProducts[]>([]);
+  const [searchValue, setSearchValue] = useState('');
+
+  const onAddCartItem = (car: IProducts) => {
+    if (cartItems.some((item) => item.id === car.id)) {
+      setCartItems((prev) => prev.filter((item) => item.id !== car.id));
+    } else {
+      setCartItems((prev) => [...prev, car]);
+    }
+  };
+
+  localStorage.setItem('cars', JSON.stringify([...cartItems]));
+
+  const onChangeSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
+  };
+
+  const clearInput = () => {
+    setSearchValue('');
+  };
+
   return (
     <div className="wrapper">
-      <Header />
+      <Header cartItems={cartItems} />
       <hr />
       <main>
         <Filter />
         <div className="main-container">
-          <ItemsPanel />
+          <ItemsPanel onChange={onChangeSearchInput} searchValue={searchValue} clearInput={clearInput} />
           <div className="cards">
-            {productsShow.map((car) => (
-              <Card {...car} key={car.id} />
-            ))}
+            {productsShow
+              .filter((car) => car.title.toLowerCase().includes(searchValue.toLocaleLowerCase()))
+              .map((car) => (
+                <Card {...car} key={car.id} onPlus={(carObj) => onAddCartItem(carObj)} />
+              ))}
           </div>
         </div>
       </main>

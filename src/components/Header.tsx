@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export function Header() {
+export function Header(props: { cartItems: {}[] }) {
   return (
     <header>
       <div className="header__left">
@@ -54,7 +54,7 @@ export function Header() {
             />
           </svg>
         </NavLink>
-        <span className="header__items-count">0</span>
+        <span className="header__items-count">{props.cartItems.length}</span>
         <span className="header__price">€1205</span>
       </div>
     </header>
