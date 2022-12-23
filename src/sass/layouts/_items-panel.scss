@@ -70,7 +70,6 @@
     border: 1px solid $color-border;
     border-radius: 5px;
     padding: 0 30px;
-    cursor: pointer;
     @extend %transition;
 
     &:hover,
@@ -97,11 +96,10 @@
     top: 50%;
     right: 12px;
     z-index: 11;
-    @extend %transition;
+    cursor: pointer;
 
     &:hover > .close-line {
       background-color: $color-btn-check;
-      cursor: pointer;
     }
   }
 
@@ -111,6 +109,7 @@
     height: 2px;
     width: 20px;
     background: $color-text-additional-light;
+    @extend %transition;
   }
 
   .close-line:first-child {
