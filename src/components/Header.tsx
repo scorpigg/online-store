@@ -6,13 +6,7 @@ type headerProps = {
   cartItems: IProducts[];
 };
 
-export function Header(props: headerProps) {
-  let sum = 0;
-
-  props.cartItems.forEach((el) => {
-    sum += el.price;
-  });
-
+export function Header({ cartItems }: headerProps) {
   return (
     <header>
       <div className="header__left">
@@ -65,8 +59,8 @@ export function Header(props: headerProps) {
             />
           </svg>
 
-          <span className="header__items-count">{props.cartItems.length}</span>
-          <span className="header__price">{sum}</span>
+          <span className="header__items-count">{cartItems.length}</span>
+          <span className="header__price">&euro;{cartItems.reduce((acc, el) => acc + el.price, 0)}</span>
         </div>
       </Link>
     </header>
