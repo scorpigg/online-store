@@ -1,20 +1,15 @@
 import React from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FilterCat } from './Filter-Category';
 import { FilterBrand } from './Filter-Brand';
 
 export function Filter() {
-  //   const navigate = useNavigate();
-  //   const doReset = () => {
-  //     window.location.reload();
-  //     navigate({
-  //       pathname: '/',
-  //     });
-  //   };
-
-  // function doReset() {
-  //   window.location.reload();
-  // }
+  const navigate = useNavigate();
+  const doReset = () => {
+    navigate({
+      pathname: '/',
+    });
+  };
 
   return (
     <form className="filter">
@@ -46,7 +41,7 @@ export function Filter() {
             <p>200</p>
           </div>
         </div>
-        <button className="btn filter__btn-reset" type="reset">
+        <button className="btn filter__btn-reset" type="reset" onClick={doReset}>
           Reset filters
         </button>
         <button
