@@ -16,10 +16,16 @@ export function FilterCat() {
 
   const navigate = useNavigate();
 
+  const [checkedState, setCheckedState] = useState(new Array(cat.length).fill(false));
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const checkedStateSet = new Set(checkedState);
+  if (searchParams.toString().length === 0 && checkedStateSet.size > 1) {
+    setCheckedState(new Array(cat.length).fill(false));
+  }
+
   searchParams.delete('cat');
 
-  const [checkedState, setCheckedState] = useState(new Array(cat.length).fill(false));
   const handleOnChange = (position: number) => {
     const updatedCheckedState = checkedState.map((item, index) => (index === position ? !item : item));
     const obj: obj = { 0: 'Real car', 1: 'Kids car', 2: 'Scale car' };

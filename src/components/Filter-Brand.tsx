@@ -13,8 +13,47 @@ export function FilterBrand() {
   const navigate = useNavigate();
 
   const [checkedState, setCheckedState] = useState(new Array(cat.length).fill(false));
-
   const [searchParams, setSearchParams] = useSearchParams();
+
+  //check if it's the root page reset current state to false
+  const checkedStateSet = new Set(checkedState);
+  if (searchParams.toString().length === 0 && checkedStateSet.size > 1) {
+    setCheckedState(new Array(cat.length).fill(false));
+  }
+
+  // const newCheckedOfQuery = new Array(cat.length).fill(false);
+  // if (searchParams.toString().length > 0) {
+  //   const findInQuery = searchParams.getAll('brand');
+  //   // console.log(JSON.parse(findInQuery[0]));
+  //   JSON.parse(findInQuery[0]).forEach((elem: string) => {
+  //     console.log(elem);
+  //     console.log('find');
+  //     const indexOfElem = cat.indexOf(elem);
+  //     // console.log(cat.indexOf(elem.replace(/['"[\]']+/g, '')));
+  //     console.log(newCheckedOfQuery[indexOfElem]);
+  //     newCheckedOfQuery[indexOfElem] = true;
+  //     console.log(newCheckedOfQuery[indexOfElem]);
+  //     setCheckedState(newCheckedOfQuery);
+  //   });
+  //   // if (newCheckedOfQuery !== checkedState) {
+  //   //   console.log('newCheckedOfQuery');
+  //   //   console.log(newCheckedOfQuery);
+  //   // setCheckedState(newCheckedOfQuery);
+
+  //   //   console.log('checked state');
+  //   //   console.log(checkedState);
+  //   //   console.log('not equal');
+  //   // }
+
+  //   // if (checkedArr !== null) {
+  //   //   if (cat[0] === checkedArr[0]?.replace(/['"\[\]']+/g, '')) {
+  //   //     console.log('identical');
+  //   //   }
+  //   //   console.log(cat[0] + ' ' + checkedArr[0]);
+  //   // }
+  // }
+  // // console.log(searchParams.get('brand'));
+
   searchParams.delete('brand');
 
   const handleOnChangeBrand = (position: number) => {
@@ -25,7 +64,7 @@ export function FilterBrand() {
         res.push(cat[index]);
       }
     });
-
+    setCheckedState(updatedCheckedState);
     if (res.length > 0 || searchParams.get('cat')) {
       if (res.length > 0) {
         searchParams.set('brand', JSON.stringify(res));
@@ -36,7 +75,7 @@ export function FilterBrand() {
         pathname: '/',
       });
     }
-    setCheckedState(updatedCheckedState);
+    // setCheckedState(updatedCheckedState);
   };
 
   return (
