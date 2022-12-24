@@ -25,9 +25,9 @@ function App() {
       <Header cartItems={cartItems} />
       <hr />
       <Routes>
-        <Route path="/" element={<Home onAddCartItem={onAddCartItem} />}></Route>
-        <Route path="/basket" element={<Basket />}></Route>
-        <Route path="/notfound" element={<NotFound />}></Route>
+        <Route path="/" element={<Home onAddCartItem={onAddCartItem} />} />
+        <Route path="/basket" element={<Basket cartItems={cartItems} />} />
+        <Route path="/notfound" element={<NotFound />} />
       </Routes>
       <hr />
       <Footer />

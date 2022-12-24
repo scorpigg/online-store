@@ -20,9 +20,7 @@ export function Card(props: IPropsAddItem) {
       <div className="card__bottom">
         <div className="card__price">
           <span className="price-text">Price:</span>
-          <p className="price-container">
-            <span>&euro;{props.price}</span>
-          </p>
+          <p className="price-value">&euro;{props.price}</p>
         </div>
         <button
           className="card__add-to-cart"
