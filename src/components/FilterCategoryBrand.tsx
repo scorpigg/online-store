@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { IProducts, products } from './../carBase';
+import { IProducts, products } from '../carBase';
 
 // type obj = {
 //   [key: number]: string;
@@ -26,7 +26,7 @@ export function FilterCat() {
   const catList = createUniqueNameList('category');
   const brandList = createUniqueNameList('brand');
   brandList.sort();
-
+  const checkNameList = catList.concat(brandList);
   const checkboxAmount = catList.length + brandList.length;
 
   const navigate = useNavigate();
@@ -39,9 +39,13 @@ export function FilterCat() {
     setCheckedState(new Array(checkboxAmount).fill(false));
   }
 
+  const newArr = checkedState;
+  newArr[2] = true;
+  //setCheckedState(newArr);
+
   const handleOnChange = (position: number) => {
     const updatedCheckedState = checkedState.map((item, index) => (index === position ? !item : item));
-    const checkNameList = catList.concat(brandList);
+
     const resCat: Array<string> = [];
     const resBrand: Array<string> = [];
     updatedCheckedState.forEach((elem, index) => {

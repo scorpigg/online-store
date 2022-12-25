@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FilterCat } from './Filter-Category';
-// import { FilterBrand } from './Filter-Brand';
+import { FilterCat } from './FilterCategoryBrand';
 
 export function Filter() {
   const navigate = useNavigate();
@@ -16,7 +15,6 @@ export function Filter() {
       <h4 className="filter__title">Filter</h4>
       <div className="filter__container">
         <FilterCat />
-        {/* <FilterBrand /> */}
         <div className="filter__price">
           <h5>Price</h5>
           <div className="filter__bar">
