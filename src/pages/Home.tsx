@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Card } from '../components/Card';
 import { Filter } from '../components/Filter';
 import { IProducts, products } from '../carBase';
@@ -71,12 +71,28 @@ export function Home(props: homeProps) {
     setSearchValue('');
   };
 
+  //count showing car cards an pass it to ItemsPanel
+  const [numCarCards, setNumCarCards] = useState(0);
+  const elemRef = useRef(null);
+  useEffect(() => {
+    if (elemRef.current !== null) {
+      const currRef: HTMLDivElement = elemRef.current;
+      setNumCarCards(currRef.childNodes.length);
+    }
+  });
+  const numShowCars = numCarCards;
+
   return (
     <main>
       <Filter />
       <div className="main-container">
-        <ItemsPanel onChange={onChangeSearchInput} searchValue={searchValue} clearInput={clearInput} />
-        <div className="cards">
+        <ItemsPanel
+          onChange={onChangeSearchInput}
+          searchValue={searchValue}
+          clearInput={clearInput}
+          numShowCars={numShowCars}
+        />
+        <div className="cards" ref={elemRef}>
           {productsShow
             .filter((car) => car.title.toLowerCase().includes(searchValue.toLocaleLowerCase()))
             .map((car) => (

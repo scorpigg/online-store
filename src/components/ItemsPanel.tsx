@@ -5,12 +5,28 @@ interface IPropsSearch {
   searchValue: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   clearInput: () => void;
+  numShowCars: number;
 }
 
 export function ItemsPanel(props: IPropsSearch) {
+  const numCarsShow = () => {
+    let strNumCars = '';
+    switch (props.numShowCars) {
+      case 0:
+        strNumCars = 'No cars';
+        break;
+      case 1:
+        strNumCars = '1 car';
+        break;
+      default:
+        strNumCars = `${props.numShowCars} cars`;
+    }
+    return strNumCars;
+  };
+
   return (
     <div className="items__panel">
-      <span className="items__title">All cars</span>
+      <span className="items__title">{numCarsShow()}</span>
       <div className="items__sort">
         <SortList />
       </div>
