@@ -17,7 +17,7 @@ export function Card(props: IPropsAddItem) {
   // console.log(props.carNum);
 
   return (
-    <div className="card">
+    <div className="card " id={'car' + props.id}>
       <div className="card__img" style={{ backgroundImage: `url(./img/cars/${props.images[0]})` }}></div>
       <p className="card__title">{props.title}</p>
       <div className="card__bottom">
