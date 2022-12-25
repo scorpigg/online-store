@@ -9,6 +9,7 @@ export function FilterBrand() {
     catArr.push(car.brand[0]);
   });
   const cat = Array.from(new Set(catArr));
+  cat.sort();
 
   const navigate = useNavigate();
 

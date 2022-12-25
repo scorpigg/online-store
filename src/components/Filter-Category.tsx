@@ -24,8 +24,6 @@ export function FilterCat() {
     setCheckedState(new Array(cat.length).fill(false));
   }
 
-  searchParams.delete('cat');
-
   const handleOnChange = (position: number) => {
     const updatedCheckedState = checkedState.map((item, index) => (index === position ? !item : item));
     const obj: obj = { 0: 'Real car', 1: 'Kids car', 2: 'Scale car' };
