@@ -6,7 +6,7 @@ import { IProducts, products } from '../carBase';
 //   [key: number]: string;
 // };
 
-export function FilterCat() {
+export function FilterChckBoxes() {
   const createUniqueNameList = (prop: string) => {
     let result: string[];
     switch (prop) {
