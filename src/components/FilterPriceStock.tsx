@@ -32,17 +32,9 @@ export function FilterSliders() {
   // const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // if (value !== initValue) {
-  //   console.log('not equal');
-  // } else {
-  //   console.log(value + ' ' + initValue);
-  // }
-
-  // let isInit = false;
   const isDiff = Boolean(value.find((elem, ind) => elem !== initValue[ind]));
 
   if (searchParams.toString().length === 0 && isDiff) {
-    // console.log('in ' + value);
     setValue(initValue);
   }
 

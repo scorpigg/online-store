@@ -39,9 +39,9 @@ export function FilterChckBoxes() {
     setCheckedState(new Array(checkboxAmount).fill(false));
   }
 
-  const newArr = checkedState;
-  newArr[2] = true;
-  //setCheckedState(newArr);
+  // const newArr = checkedState;
+  // // newArr[2] = true;
+  // setCheckedState(newArr);
 
   const handleOnChange = (position: number) => {
     const updatedCheckedState = checkedState.map((item, index) => (index === position ? !item : item));
