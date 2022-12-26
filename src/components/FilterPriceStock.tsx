@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-// import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { products } from '../carBase';
 
 export function FilterSliders() {
@@ -25,8 +25,26 @@ export function FilterSliders() {
     }
   });
 
-  const [value, setValue] = useState([minPrice, maxPrice, minStock, maxStock]);
+  const initValue = [minPrice, maxPrice, minStock, maxStock];
+  const [value, setValue] = useState(initValue);
   const idList = ['minPrice', 'maxPrice', 'minStock', 'maxStock'];
+
+  // const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // if (value !== initValue) {
+  //   console.log('not equal');
+  // } else {
+  //   console.log(value + ' ' + initValue);
+  // }
+
+  // let isInit = false;
+  const isDiff = Boolean(value.find((elem, ind) => elem !== initValue[ind]));
+
+  if (searchParams.toString().length === 0 && isDiff) {
+    // console.log('in ' + value);
+    setValue(initValue);
+  }
 
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target !== null) {
@@ -68,6 +86,10 @@ export function FilterSliders() {
         setValue(updateValue);
       }
     }
+
+    searchParams.set('priceFilt', JSON.stringify([value[0], value[1]]));
+    searchParams.set('stockFilt', JSON.stringify([value[2], value[3]]));
+    setSearchParams(searchParams);
   };
 
   return (
