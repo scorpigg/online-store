@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { products } from '../carBase';
 
@@ -38,6 +38,8 @@ export function FilterSliders() {
     setValue(initValue);
   }
 
+  let updateValue: number[] = [];
+
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target !== null) {
       const eTarget: HTMLInputElement = event.target;
@@ -73,7 +75,7 @@ export function FilterSliders() {
       }
 
       if (isCorrect) {
-        const updateValue = [...value];
+        updateValue = [...value];
         updateValue[indexTarget] = Number(event.target.value);
         setValue(updateValue);
       }
@@ -83,6 +85,14 @@ export function FilterSliders() {
     searchParams.set('stockFilt', JSON.stringify([value[2], value[3]]));
     setSearchParams(searchParams);
   };
+
+  useEffect(() => {
+    console.log(value);
+
+    searchParams.set('priceFilt', JSON.stringify([value[0], value[1]]));
+    searchParams.set('stockFilt', JSON.stringify([value[2], value[3]]));
+    setSearchParams(searchParams);
+  }, [value, searchParams, setSearchParams]);
 
   return (
     <div>
