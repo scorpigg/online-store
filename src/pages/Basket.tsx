@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { IProducts } from '../carBase';
 
-type basketProps = {
+interface ICartProps {
   cartItems: IProducts[];
-};
+  onIncreaseItemCount: (car: IProducts) => void;
+  onDecreaseItemCount: (car: IProducts) => void;
+}
 
-export function Basket({ cartItems }: basketProps) {
+export function Basket({ cartItems, onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
   const totalPrice = cartItems.reduce((acc, el) => acc + el.price, 0);
   const totalPriceWithDiscount = Math.round(
     cartItems.reduce(
@@ -26,7 +28,17 @@ export function Basket({ cartItems }: basketProps) {
     setPromoText(event.target.value);
   };
 
-  return (
+  const onClickPlus = (car: IProducts) => {
+    onIncreaseItemCount(car);
+  };
+
+  const onClickMinus = (car: IProducts) => {
+    onDecreaseItemCount(car);
+  };
+
+  return cartItems.length === 0 ? (
+    <p className="cart-empty">Cart is empty. Add items, please</p>
+  ) : (
     <div className="cart">
       <div className="cart-items">
         {cartItems.map((cartItem) => (
@@ -51,9 +63,9 @@ export function Basket({ cartItems }: basketProps) {
               </div>
             </div>
             <div className="cart-item__right">
-              <button>+</button>
+              <button onClick={() => onClickPlus(cartItem)}>+</button>
               <span className="cart-item__count">{cartItem.count}</span>
-              <button>-</button>
+              <button onClick={() => onClickMinus(cartItem)}>-</button>
             </div>
           </div>
         ))}
