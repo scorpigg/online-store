@@ -11,13 +11,17 @@ type homeProps = {
 
 export function Home(props: homeProps) {
   const search = useLocation().search;
-  let productsShow: Array<IProducts> = [];
+  let productsShow: Array<IProducts> = [...products];
 
   if (search !== null) {
     const catQuery = new URLSearchParams(search).get('cat');
     const brandQuery = new URLSearchParams(search).get('brand');
+    const priceQuery = new URLSearchParams(search).get('priceFilt');
+    const stockQuery = new URLSearchParams(search).get('stockFilt');
     let cat: Array<string> = [];
     let brand: Array<string> = [];
+    let price: Array<string> = [];
+    let stock: Array<string> = [];
 
     const sortByFilter = (carToSort: Array<IProducts>, prop: string, arrQuery: Array<string>) => {
       productsShow = [];
@@ -36,6 +40,22 @@ export function Home(props: homeProps) {
               productsShow = newSet;
             }
           }
+
+          if (prop === 'price') {
+            if (car.price >= Number(arrQuery[0]) && car.price <= Number(arrQuery[1])) {
+              productsShow.push(car);
+              const newSet = Array.from(new Set(productsShow));
+              productsShow = newSet;
+            }
+          }
+
+          if (prop === 'stock') {
+            if (car.stock >= Number(arrQuery[0]) && car.stock <= Number(arrQuery[1])) {
+              productsShow.push(car);
+              const newSet = Array.from(new Set(productsShow));
+              productsShow = newSet;
+            }
+          }
         });
       });
     };
@@ -47,19 +67,40 @@ export function Home(props: homeProps) {
       brand = JSON.parse(brandQuery);
     }
 
-    if (cat.length > 0 || brand.length > 0) {
-      productsShow = [];
+    if (priceQuery) {
+      price = JSON.parse(priceQuery);
+    }
+
+    if (stockQuery) {
+      stock = JSON.parse(stockQuery);
+    }
+
+    if (cat.length > 0 || brand.length > 0 || price.length > 0 || stock.length > 0) {
+      products.map((car) => productsShow.push(car));
+      // if (cat.length > 0) {
+      //   sortByFilter(products, 'category', cat);
+      // } else {
+      //   sortByFilter(products, 'brand', brand);
+      // }
+      // if (cat.length > 0 && brand.length > 0) {
+      //   sortByFilter(productsShow, 'brand', brand);
+      // }
       if (cat.length > 0) {
-        sortByFilter(products, 'category', cat);
-      } else {
-        sortByFilter(products, 'brand', brand);
+        sortByFilter(productsShow, 'category', cat);
       }
-      if (cat.length > 0 && brand.length > 0) {
+      if (brand.length > 0) {
         sortByFilter(productsShow, 'brand', brand);
       }
-    } else {
-      products.map((car) => productsShow.push(car));
+      if (price.length > 0) {
+        sortByFilter(productsShow, 'price', price);
+      }
+      if (stock.length > 0) {
+        sortByFilter(productsShow, 'stock', stock);
+      }
     }
+    // } else {
+    //   products.map((car) => productsShow.push(car));
+    // }
   }
 
   const [searchValue, setSearchValue] = useState('');
@@ -79,7 +120,7 @@ export function Home(props: homeProps) {
       const currRef: HTMLDivElement = elemRef.current;
       setNumCarCards(currRef.childNodes.length);
     }
-  });
+  }, [productsShow]);
   const numShowCars = numCarCards;
 
   return (

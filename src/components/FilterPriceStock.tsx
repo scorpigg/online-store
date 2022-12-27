@@ -2,34 +2,33 @@ import { ChangeEvent, useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { products } from '../carBase';
 
+let maxPrice = products[0].price;
+let minPrice = products[1].price;
+products.forEach((item) => {
+  if (item.price > maxPrice) {
+    maxPrice = item.price;
+  }
+  if (item.price < minPrice) {
+    minPrice = item.price;
+  }
+});
+
+let maxStock = products[0].stock;
+let minStock = products[1].stock;
+products.forEach((item) => {
+  if (item.stock > maxStock) {
+    maxStock = item.stock;
+  }
+  if (item.stock < minStock) {
+    minStock = item.stock;
+  }
+});
+
+const initValue = [minPrice, maxPrice, minStock, maxStock];
+const idList = ['minPrice', 'maxPrice', 'minStock', 'maxStock'];
+
 export function FilterSliders() {
-  let maxPrice = products[0].price;
-  let minPrice = products[1].price;
-  products.forEach((item) => {
-    if (item.price > maxPrice) {
-      maxPrice = item.price;
-    }
-    if (item.price < minPrice) {
-      minPrice = item.price;
-    }
-  });
-
-  let maxStock = products[0].stock;
-  let minStock = products[1].stock;
-  products.forEach((item) => {
-    if (item.stock > maxStock) {
-      maxStock = item.stock;
-    }
-    if (item.stock < minStock) {
-      minStock = item.stock;
-    }
-  });
-
-  const initValue = [minPrice, maxPrice, minStock, maxStock];
   const [value, setValue] = useState(initValue);
-  const idList = ['minPrice', 'maxPrice', 'minStock', 'maxStock'];
-
-  // const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const isDiff = Boolean(value.find((elem, ind) => elem !== initValue[ind]));
@@ -38,61 +37,46 @@ export function FilterSliders() {
     setValue(initValue);
   }
 
-  let updateValue: number[] = [];
-
+  const updateValue: number[] = [...value];
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    // const newVal = [...value];
     if (event.target !== null) {
       const eTarget: HTMLInputElement = event.target;
       const indexTarget = idList.indexOf(eTarget.id);
-      let isCorrect = true;
-      switch (indexTarget) {
-        case 0:
-          if (+eTarget.value > value[1]) {
-            isCorrect = false;
-            eTarget.value = String(value[0]);
-          }
-          break;
-        case 1:
-          if (+eTarget.value < value[0]) {
-            isCorrect = false;
-            eTarget.value = String(value[1]);
-          }
-          break;
-        case 2:
-          if (+eTarget.value > value[3]) {
-            isCorrect = false;
-            eTarget.value = String(value[2]);
-          }
-          break;
-        case 3:
-          if (+eTarget.value < value[2]) {
-            isCorrect = false;
-            eTarget.value = String(value[3]);
-          }
-          break;
-        default:
-          console.log('unknown index target');
+
+      updateValue[indexTarget] = Number(eTarget.value);
+
+      if (updateValue[0] > value[1]) {
+        updateValue[0] = value[0];
+      }
+      if (updateValue[1] < value[0]) {
+        updateValue[1] = value[1];
       }
 
-      if (isCorrect) {
-        updateValue = [...value];
-        updateValue[indexTarget] = Number(event.target.value);
-        setValue(updateValue);
-      }
+      searchParams.set('priceFilt', JSON.stringify([updateValue[0], updateValue[1]]));
+      searchParams.set('stockFilt', JSON.stringify([updateValue[2], updateValue[3]]));
+      setSearchParams(searchParams);
     }
-
-    searchParams.set('priceFilt', JSON.stringify([value[0], value[1]]));
-    searchParams.set('stockFilt', JSON.stringify([value[2], value[3]]));
-    setSearchParams(searchParams);
   };
 
   useEffect(() => {
-    console.log(value);
+    const valPrice = searchParams.get('priceFilt');
+    const valStock = searchParams.get('stockFilt');
 
-    searchParams.set('priceFilt', JSON.stringify([value[0], value[1]]));
-    searchParams.set('stockFilt', JSON.stringify([value[2], value[3]]));
-    setSearchParams(searchParams);
-  }, [value, searchParams, setSearchParams]);
+    if (valPrice !== null) {
+      const valPriceArr = JSON.parse(valPrice);
+      updateValue[0] = valPriceArr[0];
+      updateValue[1] = valPriceArr[1];
+    }
+
+    if (valStock !== null) {
+      const valStockArr = JSON.parse(valStock);
+      updateValue[2] = valStockArr[0];
+      updateValue[3] = valStockArr[1];
+    }
+
+    setValue(updateValue);
+  }, [searchParams]);
 
   return (
     <div>
@@ -104,7 +88,7 @@ export function FilterSliders() {
             min={minPrice}
             max={maxPrice}
             step={100}
-            defaultValue={minPrice}
+            value={value[0]}
             id={idList[0]}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleOnChange(e)}
           />
@@ -113,7 +97,7 @@ export function FilterSliders() {
             min={minPrice}
             max={maxPrice}
             step={10}
-            defaultValue={maxPrice}
+            value={value[1]}
             id={idList[1]}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleOnChange(e)}
           />
@@ -132,7 +116,7 @@ export function FilterSliders() {
             min={minStock}
             max={maxStock}
             step={1}
-            defaultValue={minStock}
+            value={value[2]}
             id={idList[2]}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleOnChange(e)}
           />
@@ -141,7 +125,7 @@ export function FilterSliders() {
             min={minStock}
             max={maxStock}
             step={1}
-            defaultValue={maxStock}
+            value={value[3]}
             id={idList[3]}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleOnChange(e)}
           />
