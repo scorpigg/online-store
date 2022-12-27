@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { AppContext } from '../appContext';
 import { IProducts } from '../carBase';
 
 interface ICartProps {
-  cartItems: IProducts[];
   onIncreaseItemCount: (car: IProducts) => void;
   onDecreaseItemCount: (car: IProducts) => void;
 }
 
-export function Basket({ cartItems, onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
-  const totalPrice = cartItems.reduce((acc, el) => acc + el.price, 0);
+export function Basket({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
+  const { cartItems, itemsCount } = useContext(AppContext);
+  const totalPrice = cartItems.reduce((acc, el) => acc + el.price * el.count, 0);
   const totalPriceWithDiscount = Math.round(
     cartItems.reduce(
-      (acc, el) => (el.discountPercentage ? acc + (el.price - (el.price * el.discountPercentage) / 100) : el.price),
+      (acc, el) =>
+        el.discountPercentage
+          ? acc + (el.price * el.count - (el.price * el.count * el.discountPercentage) / 100)
+          : el.price * el.count,
       0
     )
   );
@@ -73,7 +77,7 @@ export function Basket({ cartItems, onIncreaseItemCount, onDecreaseItemCount }: 
       <div className="cart-summary">
         <h3 className="cart-summary__title">Summary</h3>
         <p className="cart-summary__products">
-          Products: <span>{cartItems.length}</span>
+          Products: <span>{itemsCount}</span>
         </p>
         {addDiscount ? (
           <p className="cart-summary__total-price">
