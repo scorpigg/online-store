@@ -11,6 +11,10 @@ export function Filter() {
     });
   };
 
+  const doCopy = () => {
+    navigator.clipboard.writeText(window.location.href);
+  };
+
   return (
     <form className="filter">
       <h4 className="filter__title">Filter</h4>
@@ -20,12 +24,7 @@ export function Filter() {
         <button className="btn filter__btn-reset" type="reset" onClick={doReset}>
           Reset filters
         </button>
-        <button
-          className="btn"
-          onClick={() => {
-            navigator.clipboard.writeText(window.location.href);
-          }}
-        >
+        <button className="btn" onClick={doCopy} type="button">
           Copy link
         </button>
       </div>
