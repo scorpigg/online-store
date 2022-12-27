@@ -18,6 +18,20 @@ function App() {
     }
   };
 
+  const onIncreaseItemCount = (car: IProducts) => {
+    const newItemsArr = cartItems;
+    setCartItems(newItemsArr.map((item) => (item.id === car.id ? { ...item, count: item.count + 1 } : item)));
+  };
+
+  const onDecreaseItemCount = (car: IProducts) => {
+    if (car.count <= 1) {
+      setCartItems((prev) => prev.filter((item) => item.id !== car.id));
+    } else {
+      const newItemsArr = cartItems;
+      setCartItems(newItemsArr.map((item) => (item.id === car.id ? { ...item, count: item.count - 1 } : item)));
+    }
+  };
+
   localStorage.setItem('cars', JSON.stringify([...cartItems]));
 
   return (
@@ -26,7 +40,16 @@ function App() {
       <hr />
       <Routes>
         <Route path="/" element={<Home onAddCartItem={onAddCartItem} />} />
-        <Route path="/basket" element={<Basket cartItems={cartItems} />} />
+        <Route
+          path="/basket"
+          element={
+            <Basket
+              cartItems={cartItems}
+              onIncreaseItemCount={onIncreaseItemCount}
+              onDecreaseItemCount={onDecreaseItemCount}
+            />
+          }
+        />
         <Route path="/notfound" element={<NotFound />} />
       </Routes>
       <hr />

@@ -79,7 +79,7 @@ export function Home(props: homeProps) {
       const currRef: HTMLDivElement = elemRef.current;
       setNumCarCards(currRef.childNodes.length);
     }
-  });
+  }, []);
   const numShowCars = numCarCards;
 
   return (
