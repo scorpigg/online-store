@@ -1,36 +1,34 @@
-import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { IProducts, products } from '../carBase';
 
 // type obj = {
 //   [key: number]: string;
 // };
 
+const createUniqueNameList = (prop: string) => {
+  let result: string[];
+  switch (prop) {
+    case 'category':
+      result = Array.from(new Set(products.map((item: IProducts) => item.category)));
+      break;
+    case 'brand':
+      result = Array.from(new Set(products.map((item: IProducts) => item.brand[0])));
+      break;
+    default:
+      result = ['error'];
+      break;
+  }
+  return result;
+};
+
+const catList = createUniqueNameList('category');
+const brandList = createUniqueNameList('brand');
+brandList.sort();
+const checkNameList = catList.concat(brandList);
+const checkboxAmount = catList.length + brandList.length;
+
 export function FilterChckBoxes() {
-  const createUniqueNameList = (prop: string) => {
-    let result: string[];
-    switch (prop) {
-      case 'category':
-        result = Array.from(new Set(products.map((item: IProducts) => item.category)));
-        break;
-      case 'brand':
-        result = Array.from(new Set(products.map((item: IProducts) => item.brand[0])));
-        break;
-      default:
-        result = ['error'];
-        break;
-    }
-    return result;
-  };
-
-  const catList = createUniqueNameList('category');
-  const brandList = createUniqueNameList('brand');
-  brandList.sort();
-  const checkNameList = catList.concat(brandList);
-  const checkboxAmount = catList.length + brandList.length;
-
-  const navigate = useNavigate();
-
   const [checkedState, setCheckedState] = useState(new Array(checkboxAmount).fill(false));
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -39,44 +37,68 @@ export function FilterChckBoxes() {
     setCheckedState(new Array(checkboxAmount).fill(false));
   }
 
-  const newArr = checkedState;
-  newArr[2] = true;
-  //setCheckedState(newArr);
-
   const handleOnChange = (position: number) => {
-    const updatedCheckedState = checkedState.map((item, index) => (index === position ? !item : item));
-
-    const resCat: Array<string> = [];
-    const resBrand: Array<string> = [];
-    updatedCheckedState.forEach((elem, index) => {
-      if (elem && index < 3) {
-        resCat.push(checkNameList[index]);
-      }
-      if (elem && index >= 3) {
-        resBrand.push(checkNameList[index]);
-      }
-    });
-
-    if (resCat.concat(resBrand).length > 0) {
-      if (resCat.length > 0) {
-        searchParams.set('cat', JSON.stringify(resCat));
-      } else {
-        searchParams.delete('cat');
-      }
-      if (resBrand.length > 0) {
-        searchParams.set('brand', JSON.stringify(resBrand));
-      } else {
-        searchParams.delete('brand');
-      }
-
-      setSearchParams(searchParams);
+    const getBrand = searchParams.get('brand');
+    let getBrandArr: string[] = [];
+    if (getBrand !== null) {
+      getBrandArr = JSON.parse(getBrand);
+    }
+    if (getBrandArr.find((elem) => elem === brandList[position - 3])) {
+      getBrandArr.splice(getBrandArr.indexOf(brandList[position - 3]), 1);
     } else {
-      navigate({
-        pathname: '/',
+      if (brandList[position - 3]) {
+        getBrandArr.push(brandList[position - 3]);
+      }
+    }
+    if (getBrandArr.length > 0) {
+      searchParams.set('brand', JSON.stringify(getBrandArr));
+    } else {
+      searchParams.delete('brand');
+    }
+
+    const getCat = searchParams.get('cat');
+    let getCatArr: string[] = [];
+    if (getCat !== null) {
+      getCatArr = JSON.parse(getCat);
+    }
+    if (getCatArr.find((elem) => elem === catList[position])) {
+      getCatArr.splice(getCatArr.indexOf(catList[position]), 1);
+    } else {
+      if (catList[position]) {
+        getCatArr.push(catList[position]);
+      }
+    }
+
+    if (getCatArr.length > 0) {
+      searchParams.set('cat', JSON.stringify(getCatArr));
+    } else {
+      searchParams.delete('cat');
+    }
+
+    setSearchParams(searchParams);
+  };
+
+  useEffect(() => {
+    const checkBrand = searchParams.get('brand');
+    const checkCat = searchParams.get('cat');
+    const updatedCheckedState: boolean[] = new Array(checkboxAmount).fill(false);
+
+    if (checkBrand !== null) {
+      const checkBrandArr = JSON.parse(checkBrand);
+      checkBrandArr.forEach((elem: string) => {
+        updatedCheckedState[checkNameList.indexOf(elem)] = true;
       });
     }
+
+    if (checkCat !== null) {
+      const checkCatArr = JSON.parse(checkCat);
+      checkCatArr.forEach((elem: string) => {
+        updatedCheckedState[checkNameList.indexOf(elem)] = true;
+      });
+    }
+
     setCheckedState(updatedCheckedState);
-  };
+  }, [searchParams]);
 
   return (
     <div>
