@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../appContext';
 import { IProducts } from '../carBase';
 
 interface IPropsAddItem extends IProducts {
@@ -6,15 +7,11 @@ interface IPropsAddItem extends IProducts {
 }
 
 export function Card(props: IPropsAddItem) {
-  const [isAdded, setIsAdded] = useState(false);
+  const { isItemAdded } = useContext(AppContext);
 
   const onAddclick = () => {
-    setIsAdded(!isAdded);
     props.onPlus(props);
   };
-
-  // props.carNum += 1;
-  // console.log(props.carNum);
 
   return (
     <div className="card " id={'car' + props.id}>
@@ -28,7 +25,7 @@ export function Card(props: IPropsAddItem) {
         <button
           className="card__add-to-cart"
           onClick={onAddclick}
-          style={isAdded ? { backgroundImage: 'url(./img/btn-check.svg' } : undefined}
+          style={isItemAdded(props.id) ? { backgroundImage: 'url(./img/btn-check.svg' } : undefined}
         ></button>
       </div>
     </div>

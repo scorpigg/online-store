@@ -1,12 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { IProducts } from '../carBase';
+import { AppContext } from '../appContext';
 
-type headerProps = {
-  cartItems: IProducts[];
-};
+export function Header() {
+  const { cartItems, itemsCount } = useContext(AppContext);
 
-export function Header({ cartItems }: headerProps) {
   return (
     <header>
       <div className="header__left">
@@ -59,7 +57,7 @@ export function Header({ cartItems }: headerProps) {
             />
           </svg>
 
-          <span className="header__items-count">{cartItems.length}</span>
+          <span className="header__items-count">{itemsCount}</span>
           <span className="header__price">&euro;{cartItems.reduce((acc, el) => acc + el.price, 0)}</span>
         </div>
       </Link>
