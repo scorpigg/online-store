@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Card } from '../components/Card';
 import { Filter } from '../components/Filter';
 import { IProducts, products } from '../carBase';
 import { ItemsPanel } from '../components/ItemsPanel';
 import { useLocation } from 'react-router-dom';
+import { AppContext } from '../appContext';
 
 type homeProps = {
   onAddCartItem: (car: IProducts) => void;
@@ -135,6 +136,8 @@ export function Home(props: homeProps) {
   }, [productsShow]);
   const numShowCars = numCarCards;
 
+  const { itemsView } = useContext(AppContext);
+
   return (
     <main>
       <Filter />
@@ -145,7 +148,7 @@ export function Home(props: homeProps) {
           clearInput={clearInput}
           numShowCars={numShowCars}
         />
-        <div className="cards" ref={elemRef}>
+        <div className={itemsView === 'table' ? 'cards' : 'cards-list'} ref={elemRef}>
           {productsShow
             .filter((car) => car.title.toLowerCase().includes(searchValue.toLocaleLowerCase()))
             .map((car) => (

@@ -7,7 +7,7 @@ interface ICartProps {
   onDecreaseItemCount: (car: IProducts) => void;
 }
 
-export function Basket({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
+export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
   const { cartItems, itemsCount } = useContext(AppContext);
   const totalPrice = cartItems.reduce((acc, el) => acc + el.price * el.count, 0);
   const totalPriceWithDiscount = Math.round(

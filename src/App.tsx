@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { IProducts } from './carBase';
-import { Basket } from './pages/Basket';
+import { Cart } from './pages/Cart';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { Home } from './pages/Home';
@@ -59,16 +59,22 @@ function App() {
 
   const itemsCount = cartItems.reduce((acc, item) => acc + item.count, 0);
 
+  const [itemsView, setItemsView] = useState('table');
+
+  const onItemView = (view: string) => {
+    setItemsView(view);
+  };
+
   return (
-    <AppContext.Provider value={{ cartItems, isItemAdded, itemsCount }}>
+    <AppContext.Provider value={{ cartItems, isItemAdded, itemsCount, itemsView, onItemView }}>
       <div className="wrapper">
         <Header />
         <hr />
         <Routes>
           <Route path="/" element={<Home onAddCartItem={onAddCartItem} />} />
           <Route
-            path="/basket"
-            element={<Basket onIncreaseItemCount={onIncreaseItemCount} onDecreaseItemCount={onDecreaseItemCount} />}
+            path="/cart"
+            element={<Cart onIncreaseItemCount={onIncreaseItemCount} onDecreaseItemCount={onDecreaseItemCount} />}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
