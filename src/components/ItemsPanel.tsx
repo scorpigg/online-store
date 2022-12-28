@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import SortList from './SortList';
 import { products } from '../carBase';
+import { AppContext } from '../appContext';
 
 interface IPropsSearch {
   searchValue: string;
@@ -25,6 +26,8 @@ export function ItemsPanel(props: IPropsSearch) {
     return strNumCars;
   };
 
+  const { itemsView, onItemView } = useContext(AppContext);
+
   return (
     <div className="items__panel">
       <p className="items__count">
@@ -36,8 +39,14 @@ export function ItemsPanel(props: IPropsSearch) {
         <SortList />
       </div>
       <div className="items__view">
-        <div className="view-list"></div>
-        <div className="view-table"></div>
+        <div
+          onClick={() => onItemView('table')}
+          className={`view-table ${itemsView === 'table' ? 'view-table_active' : ''}`}
+        ></div>
+        <div
+          onClick={() => onItemView('list')}
+          className={`view-list ${itemsView === 'list' ? 'view-list_active' : ''}`}
+        ></div>
       </div>
       <div className="search-block">
         <img src="img/search.svg" alt="Search" />

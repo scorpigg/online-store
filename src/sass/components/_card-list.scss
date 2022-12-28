@@ -1,10 +1,9 @@
-.card {
+.card-list {
   position: relative;
-  min-height: 300px;
+  min-height: 150px;
   display: flex;
-  flex-direction: column;
   padding: 15px;
-  padding-top: 20px;
+  padding-top: 30px;
   border-radius: 15px;
   cursor: pointer;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
@@ -12,7 +11,11 @@
   transition: box-shadow 0.15s linear;
 
   &:hover {
-    box-shadow: 0px 10px 10px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 5px 5px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
   }
 
   &:hover:before {
@@ -39,10 +42,10 @@
   }
 }
 
-.card__img {
+.card-list__img {
   position: relative;
-  min-height: 150px;
-  margin-bottom: 15px;
+  min-width: 300px;
+  margin-right: 25px;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -50,33 +53,52 @@
   &::after {
     content: '';
     position: absolute;
-    bottom: -5px;
-    width: 100%;
-    height: 1px;
-    border-bottom: 1px solid $color-border;
+    right: -10px;
+    height: 100%;
+    width: 1px;
+    border-right: 1px solid $color-border;
   }
 }
 
-.card__bottom {
+.card-list__center {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-list__title {
+  font-weight: 500;
+  font-size: 1.8rem;
+  line-height: 2rem;
+  margin-bottom: 10px;
+}
+
+.card-list__desc {
+  line-height: 2rem;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.card-list__bottom {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  flex-wrap: wrap;
   margin-top: auto;
 }
 
-.card__title {
-  font-size: 1.6rem;
-  line-height: 2rem;
-}
-
-.card__price {
+.card-list__price,
+.card-list__rating,
+.card-list__stock {
   display: flex;
-  flex-direction: column;
   font-weight: 500;
   font-size: 1.4rem;
   line-height: 1.8rem;
 
-  .price-text {
+  .price-text,
+  .rating-text,
+  .stock-text {
     font-weight: 500;
     font-size: 1.4rem;
     line-height: 1.8rem;
@@ -85,24 +107,11 @@
     margin-right: 5px;
   }
 
-  .price-value {
+  .price-value,
+  .rating-value,
+  .stock-value {
     display: flex;
     flex-wrap: wrap;
     font-weight: 700;
-  }
-}
-
-.card__add-to-cart {
-  width: 32px;
-  height: 32px;
-  background-image: url('../../../public/img/btn-add.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  border: none;
-  cursor: pointer;
-  @extend %transition;
-
-  &:hover {
-    background-image: url('../../../public/img/btn-add-active.svg');
   }
 }

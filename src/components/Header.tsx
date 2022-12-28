@@ -18,7 +18,7 @@ export function Header() {
           <span className="header__tagline">Buy your dream car</span>
         </div>
       </div>
-      <Link to="basket">
+      <Link to="cart">
         <div className="header__right">
           <svg
             className="header__cart"

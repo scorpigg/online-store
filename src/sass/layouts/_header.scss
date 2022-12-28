@@ -12,20 +12,24 @@ header {
     display: flex;
     align-items: center;
     cursor: pointer;
+
+    &:hover .header__cart > path {
+      stroke: $color-btn;
+    }
   }
 }
 
 .header__info {
   padding-left: 20px;
-}
 
-h3 {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 2rem;
-  text-transform: uppercase;
-  color: $color-text-primary;
+  h3 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: $color-text-primary;
+  }
 }
 
 .header__tagline {
@@ -40,23 +44,11 @@ h3 {
   @extend %transition;
 }
 
-.header__cart:hover {
-  cursor: pointer;
-}
-
-.header__cart:hover > path {
-  stroke: $color-btn;
-}
-
 .header__price {
   margin-left: 15px;
   font-weight: 700;
   font-size: 1.8rem;
   color: $color-text-additional;
-}
-
-.header__cart:hover > path {
-  stroke: $color-btn;
 }
 
 .header__price {
