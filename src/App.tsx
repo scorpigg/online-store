@@ -70,7 +70,7 @@ function App() {
             path="/basket"
             element={<Basket onIncreaseItemCount={onIncreaseItemCount} onDecreaseItemCount={onDecreaseItemCount} />}
           />
-          <Route path="/notfound" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <hr />
         <Footer />
