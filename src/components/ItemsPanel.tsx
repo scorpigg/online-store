@@ -1,5 +1,6 @@
 import React from 'react';
 import SortList from './SortList';
+import { products } from '../carBase';
 
 interface IPropsSearch {
   searchValue: string;
@@ -26,7 +27,11 @@ export function ItemsPanel(props: IPropsSearch) {
 
   return (
     <div className="items__panel">
-      <span className="items__title">{numCarsShow()}</span>
+      <p className="showItems">
+        <span className="items__title">{numCarsShow()}</span>
+        <br />
+        <span className="items__total">from {products.length}</span>
+      </p>
       <div className="items__sort">
         <SortList />
       </div>

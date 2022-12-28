@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   width: 100%;
 
   select {
@@ -22,34 +22,67 @@
 }
 
 .items__title {
+  width: 80px;
   font-weight: 700;
   font-size: 2rem;
   color: $color-text-additional;
 }
 
+.items__total {
+  color: $color-text-additional-light;
+}
+
 .items__sort {
   position: relative;
   cursor: pointer;
+}
 
+.sort {
+  width: 185px;
+}
+
+.sort__label {
   &::after {
     content: '';
     position: absolute;
     top: 50%;
-    right: 8px;
+    right: 20px;
     transform: translateY(-50%);
     height: 14px;
     width: 22px;
-    background: url('../../../public/img/sort-arrow.svg') no-repeat center;
+    // background: url('../../../public/img/sort-arrow.svg') no-repeat center;
     z-index: 1;
     @extend %transition;
   }
 
-  &:hover::after {
-    background: url('../../../public/img/sort-arrow-active.svg') no-repeat center;
-  }
+  // &:hover::after {
+  //   background: url('../../../public/img/sort-arrow-active.svg') no-repeat center;
+  // }
 
   &:hover select {
     border: 1px solid $color-btn-check;
+  }
+}
+
+.sort__popup {
+  position: absolute;
+  width: 180px;
+  border: 1px solid $color-border;
+  border-radius: 10px;
+  padding: 10px;
+  line-height: 1.5;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  @extend %transition;
+
+  li:hover {
+    color: $color-btn-check;
+    @extend %transition;
+  }
+
+  .active {
+    color: $color-btn-check;
   }
 }
 

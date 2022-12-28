@@ -1,22 +1,54 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const SortList = () => {
+  const sortList = [
+    'Sort by default',
+    'Sort by price ASC',
+    'Sort by price DESC',
+    'Sort by rating ASC',
+    'Sort by rating DESC',
+  ];
+  const [isVisible, setVisible] = useState(false);
+  const [selected, setSelected] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const onClickListItem = (i: number) => {
+    searchParams.set('sort', JSON.stringify(i));
+    setSearchParams(searchParams);
+  };
+
+  useEffect(() => {
+    const getSort = searchParams.get('sort');
+    let getSortNum = 0;
+    if (getSort !== null) {
+      getSortNum = Number(JSON.parse(getSort));
+    }
+
+    setSelected(getSortNum);
+    setVisible(false);
+  }, [searchParams]);
+
   return (
-    <select defaultValue={'default'}>
-      <option value="default" disabled hidden>
-        Sort by...
-      </option>
-      <option value="price-asc">Sort by price ASC</option>
-      <option value="price-desc">Sort by price DESC</option>
-      <option value="rating-asc">Sort by rating ASC</option>
-      <option value="rating-desc">Sort by rating DESC</option>
-    </select>
+    <div className="sort">
+      <div className="sort__label" onClick={() => setVisible(!isVisible)}>
+        {sortList[selected]}
+      </div>
+      {isVisible && (
+        <div className="sort__popup">
+          <ul>
+            {sortList.map((name, i) => {
+              return (
+                <li key={i} onClick={() => onClickListItem(i)} className={selected === i ? 'active' : ''}>
+                  {name}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+    </div>
   );
 };
 
 export default SortList;
-
-// useful links to understand
-// https://www.simplilearn.com/tutorials/reactjs-tutorial/how-to-create-functional-react-dropdown-menu
-// https://devblog.xero.com/typescript-and-react-whats-react-component-p-s-mean-cfddc65f81e1
-// https://reactjs.org/docs/forms.html
