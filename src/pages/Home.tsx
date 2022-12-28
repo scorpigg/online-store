@@ -140,7 +140,7 @@ export function Home(props: homeProps) {
 
   return (
     <main>
-      <Filter />
+      <Filter productsShow={productsShow} />
       <div className="main-container">
         <ItemsPanel
           onChange={onChangeSearchInput}

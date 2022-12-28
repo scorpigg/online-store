@@ -1,36 +1,47 @@
 import { ChangeEvent, useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { products } from '../carBase';
+import { IProducts, products } from '../carBase';
 
-let maxPrice = products[0].price;
-let minPrice = products[1].price;
-products.forEach((item) => {
-  if (item.price > maxPrice) {
-    maxPrice = item.price;
-  }
-  if (item.price < minPrice) {
-    minPrice = item.price;
-  }
-});
+type ProductsShow = {
+  productsShow: IProducts[];
+};
 
-let maxStock = products[0].stock;
-let minStock = products[1].stock;
-products.forEach((item) => {
-  if (item.stock > maxStock) {
-    maxStock = item.stock;
-  }
-  if (item.stock < minStock) {
-    minStock = item.stock;
-  }
-});
+export function FilterRange(props: ProductsShow) {
+  let maxPrice = products[0].price;
+  let minPrice = products[1].price;
 
-const initValue = [minPrice, maxPrice, minStock, maxStock];
-const idList = ['minPrice', 'maxPrice', 'minStock', 'maxStock'];
+  function maxminPrice(prodArr: IProducts[]) {
+    prodArr.forEach((item) => {
+      if (item.price > maxPrice) {
+        maxPrice = item.price;
+      }
+      if (item.price < minPrice) {
+        minPrice = item.price;
+      }
+    });
+  }
+  maxminPrice(products);
 
-export function FilterSliders() {
+  let maxStock = products[0].stock;
+  let minStock = products[1].stock;
+  function maxminStock(prodArr: IProducts[]) {
+    prodArr.forEach((item) => {
+      if (item.stock > maxStock) {
+        maxStock = item.stock;
+      }
+      if (item.stock < minStock) {
+        minStock = item.stock;
+      }
+    });
+  }
+  maxminStock(products);
+
+  const initValue = [minPrice, maxPrice, minStock, maxStock];
+  const idList = ['minPrice', 'maxPrice', 'minStock', 'maxStock'];
   const [value, setValue] = useState(initValue);
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const [maxmin, setMaxmin] = useState([minPrice, maxPrice, minStock, maxStock]);
+  // console.log(maxmin);
   const isDiff = Boolean(value.find((elem, ind) => elem !== initValue[ind]));
 
   if (searchParams.toString().length === 0 && isDiff) {
@@ -52,6 +63,12 @@ export function FilterSliders() {
       if (updateValue[1] < value[0]) {
         updateValue[1] = value[1];
       }
+      if (updateValue[2] > value[2]) {
+        updateValue[2] = value[2];
+      }
+      if (updateValue[3] < value[2]) {
+        updateValue[3] = value[3];
+      }
 
       searchParams.set('priceFilt', JSON.stringify([updateValue[0], updateValue[1]]));
       searchParams.set('stockFilt', JSON.stringify([updateValue[2], updateValue[3]]));
@@ -62,6 +79,9 @@ export function FilterSliders() {
   useEffect(() => {
     const valPrice = searchParams.get('priceFilt');
     const valStock = searchParams.get('stockFilt');
+    maxminPrice(props.productsShow);
+    maxminStock(props.productsShow);
+    setMaxmin([minPrice, maxPrice, minStock, maxStock]);
 
     if (valPrice !== null) {
       const valPriceArr = JSON.parse(valPrice);
@@ -85,8 +105,8 @@ export function FilterSliders() {
         <div className="filter__bar">
           <input
             type="range"
-            min={minPrice}
-            max={maxPrice}
+            min={maxmin[0]}
+            max={maxmin[1]}
             step={100}
             value={value[0]}
             id={idList[0]}
@@ -94,8 +114,8 @@ export function FilterSliders() {
           />
           <input
             type="range"
-            min={minPrice}
-            max={maxPrice}
+            min={maxmin[0]}
+            max={maxmin[1]}
             step={10}
             value={value[1]}
             id={idList[1]}
