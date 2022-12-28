@@ -37,6 +37,7 @@ export function FilterRange(props: ProductsShow) {
   maxminStock(products);
 
   const initValue = [minPrice, maxPrice, minStock, maxStock];
+
   const idList = ['minPrice', 'maxPrice', 'minStock', 'maxStock'];
   const [value, setValue] = useState(initValue);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -63,7 +64,7 @@ export function FilterRange(props: ProductsShow) {
       if (updateValue[1] < value[0]) {
         updateValue[1] = value[1];
       }
-      if (updateValue[2] > value[2]) {
+      if (updateValue[2] > value[3]) {
         updateValue[2] = value[2];
       }
       if (updateValue[3] < value[2]) {
@@ -116,7 +117,7 @@ export function FilterRange(props: ProductsShow) {
             type="range"
             min={maxmin[0]}
             max={maxmin[1]}
-            step={10}
+            step={100}
             value={value[1]}
             id={idList[1]}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleOnChange(e)}
