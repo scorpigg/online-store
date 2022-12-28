@@ -18,6 +18,7 @@ export function Home(props: homeProps) {
     const brandQuery = new URLSearchParams(search).get('brand');
     const priceQuery = new URLSearchParams(search).get('priceFilt');
     const stockQuery = new URLSearchParams(search).get('stockFilt');
+    const sortQuery = new URLSearchParams(search).get('sort');
     let cat: Array<string> = [];
     let brand: Array<string> = [];
     let price: Array<string> = [];
@@ -30,6 +31,8 @@ export function Home(props: homeProps) {
           if (prop === 'category') {
             if (elemSearch === car.category) {
               productsShow.push(car);
+              const newSet = Array.from(new Set(productsShow));
+              productsShow = newSet;
             }
           }
 
@@ -77,14 +80,7 @@ export function Home(props: homeProps) {
 
     if (cat.length > 0 || brand.length > 0 || price.length > 0 || stock.length > 0) {
       products.map((car) => productsShow.push(car));
-      // if (cat.length > 0) {
-      //   sortByFilter(products, 'category', cat);
-      // } else {
-      //   sortByFilter(products, 'brand', brand);
-      // }
-      // if (cat.length > 0 && brand.length > 0) {
-      //   sortByFilter(productsShow, 'brand', brand);
-      // }
+
       if (cat.length > 0) {
         sortByFilter(productsShow, 'category', cat);
       }
@@ -98,9 +94,25 @@ export function Home(props: homeProps) {
         sortByFilter(productsShow, 'stock', stock);
       }
     }
-    // } else {
-    //   products.map((car) => productsShow.push(car));
-    // }
+
+    if (sortQuery) {
+      switch (Number(sortQuery)) {
+        case 1:
+          productsShow.sort((a, b) => (a.price > b.price ? 1 : -1));
+          break;
+        case 2:
+          productsShow.sort((a, b) => (a.price > b.price ? -1 : 1));
+          break;
+        case 3:
+          productsShow.sort((a, b) => (a.stock > b.stock ? 1 : -1));
+          break;
+        case 4:
+          productsShow.sort((a, b) => (a.stock > b.stock ? -1 : 1));
+          break;
+        default:
+          productsShow.sort((a, b) => (a.id > b.id ? 1 : -1));
+      }
+    }
   }
 
   const [searchValue, setSearchValue] = useState('');

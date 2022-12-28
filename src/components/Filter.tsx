@@ -1,14 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { FilterChckBoxes } from './FilterCategoryBrand';
 import { FilterSliders } from './FilterPriceStock';
 
 export function Filter() {
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const doReset = () => {
-    navigate({
-      pathname: '/',
-    });
+    searchParams.delete('cat');
+    searchParams.delete('brand');
+    searchParams.delete('priceFilt');
+    searchParams.delete('stockFilt');
+    setSearchParams(searchParams);
   };
 
   const doCopy = () => {
