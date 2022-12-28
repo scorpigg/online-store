@@ -58,7 +58,7 @@ export const products: Array<IProducts> = [
     color: 'yellow',
     discountPercentage: 20,
     rating: 4.3,
-    stock: 273,
+    stock: 100,
     brand: ['Maisto', 'Lamborghini'],
     category: 'Scale car',
     bodyStyle: 'SUV',
@@ -91,7 +91,7 @@ export const products: Array<IProducts> = [
     title: 'Lamborghini Centenario',
     description: `The Centenario is the first Lamborghini automobile to have 3 exhausts and
       to be deployed with rear-wheel steering.`,
-    price: 2000000,
+    price: 200000,
     color: 'grey',
     discountPercentage: 2,
     rating: 5,

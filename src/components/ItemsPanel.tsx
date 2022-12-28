@@ -27,7 +27,7 @@ export function ItemsPanel(props: IPropsSearch) {
 
   return (
     <div className="items__panel">
-      <p className="showItems">
+      <p className="items__count">
         <span className="items__title">{numCarsShow()}</span>
         <br />
         <span className="items__total">from {products.length}</span>

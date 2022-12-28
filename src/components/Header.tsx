@@ -58,7 +58,7 @@ export function Header() {
           </svg>
 
           <span className="header__items-count">{itemsCount}</span>
-          <span className="header__price">&euro;{cartItems.reduce((acc, el) => acc + el.price, 0)}</span>
+          <span className="header__price">&euro;{cartItems.reduce((acc, el) => acc + el.price * el.count, 0)}</span>
         </div>
       </Link>
     </header>

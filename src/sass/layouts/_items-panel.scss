@@ -28,6 +28,10 @@
   color: $color-text-additional;
 }
 
+.items__count {
+  width: 80px;
+}
+
 .items__total {
   color: $color-text-additional-light;
 }
@@ -37,36 +41,40 @@
   cursor: pointer;
 }
 
-.sort {
-  width: 185px;
-}
-
 .sort__label {
+  width: 200px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border: 1px solid $color-border;
+  border-radius: 5px;
+  padding: 20px 10px;
+
   &::after {
     content: '';
     position: absolute;
     top: 50%;
-    right: 20px;
+    right: 10px;
     transform: translateY(-50%);
     height: 14px;
     width: 22px;
-    // background: url('../../../public/img/sort-arrow.svg') no-repeat center;
+    background: url('../../../public/img/sort-arrow.svg') no-repeat center;
     z-index: 1;
     @extend %transition;
   }
 
-  // &:hover::after {
-  //   background: url('../../../public/img/sort-arrow-active.svg') no-repeat center;
-  // }
+  &:hover::after {
+    background: url('../../../public/img/sort-arrow-active.svg') no-repeat center;
+  }
 
-  &:hover select {
+  &:hover {
     border: 1px solid $color-btn-check;
   }
 }
 
 .sort__popup {
   position: absolute;
-  width: 180px;
+  width: 100%;
   border: 1px solid $color-border;
   border-radius: 10px;
   padding: 10px;
