@@ -121,9 +121,9 @@ export function FilterRange(props: ProductsShow) {
           />
         </div>
         <div className="entry-fields">
-          <p>&euro;{value[0]}</p>
+          <p>&euro;{maxmin[0]}</p>
           <span></span>
-          <p>&euro;{value[1]}</p>
+          <p>&euro;{maxmin[1]}</p>
         </div>
       </div>
       <div className="filter__stock">
@@ -149,9 +149,9 @@ export function FilterRange(props: ProductsShow) {
           />
         </div>
         <div className="entry-fields">
-          <p>{value[2]}</p>
+          <p>{maxmin[2]}</p>
           <span></span>
-          <p>{value[3]}</p>
+          <p>{maxmin[3]}</p>
         </div>
       </div>
     </div>
