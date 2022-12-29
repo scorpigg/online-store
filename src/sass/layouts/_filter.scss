@@ -2,6 +2,7 @@
   position: relative;
   top: 33px;
   margin-right: 30px;
+  margin-bottom: 20px;
 }
 
 .filter__title {
@@ -72,6 +73,10 @@
   }
 }
 
+.inactive {
+  color: $color-text-additional-light;
+}
+
 .filter__bar {
   position: relative;
   width: 100%;
@@ -83,6 +88,7 @@
   input[type='range'] {
     width: 100%;
     -webkit-appearance: none;
+    appearance: none;
     position: absolute;
     left: 0;
     top: 5px;

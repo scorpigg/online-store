@@ -28,7 +28,11 @@ brandList.sort();
 const checkNameList = catList.concat(brandList);
 const checkboxAmount = catList.length + brandList.length;
 
-export function FilterChckBoxes() {
+type ProductsShow = {
+  productsShow: IProducts[];
+};
+
+export function FilterChckBoxes(props: ProductsShow) {
   const [checkedState, setCheckedState] = useState(new Array(checkboxAmount).fill(false));
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -100,6 +104,26 @@ export function FilterChckBoxes() {
     setCheckedState(updatedCheckedState);
   }, [searchParams]);
 
+  function isInCat(index: number) {
+    let bool = false;
+    props.productsShow.forEach((elem) => {
+      if (catList[index] === elem.category) {
+        bool = true;
+      }
+    });
+    return bool;
+  }
+
+  function isInBrand(index: number) {
+    let bool = false;
+    props.productsShow.forEach((elem) => {
+      if (brandList[index] === elem.brand[0] || brandList[index] === elem.brand[1]) {
+        bool = true;
+      }
+    });
+    return bool;
+  }
+
   return (
     <div>
       <ul className="filter__categories">
@@ -115,7 +139,9 @@ export function FilterChckBoxes() {
                 checked={checkedState[index]}
                 onChange={() => handleOnChange(index)}
               />
-              <label htmlFor={`custom-checkbox-${index}`}>{elem}</label>
+              <label htmlFor={`custom-checkbox-${index}`} className={isInCat(index) ? '' : 'inactive'}>
+                {elem}
+              </label>
             </li>
           );
         })}
@@ -133,7 +159,12 @@ export function FilterChckBoxes() {
                 checked={checkedState[index + catList.length]}
                 onChange={() => handleOnChange(index + catList.length)}
               />
-              <label htmlFor={`custom-checkbox-${index + catList.length}`}>{elem}</label>
+              <label
+                htmlFor={`custom-checkbox-${index + catList.length}`}
+                className={isInBrand(index) ? '' : 'inactive'}
+              >
+                {elem}
+              </label>
             </li>
           );
         })}

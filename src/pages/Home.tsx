@@ -140,7 +140,7 @@ export function Home(props: homeProps) {
 
   return (
     <main>
-      <Filter />
+      <Filter productsShow={productsShow} />
       <div className="main-container">
         <ItemsPanel
           onChange={onChangeSearchInput}
@@ -155,6 +155,11 @@ export function Home(props: homeProps) {
               <Card {...car} key={car.id} onPlus={(carObj) => props.onAddCartItem(carObj)} />
             ))}
         </div>
+        {!numShowCars && (
+          <div className="show">
+            <p className="nocars">There's no one car according to your query</p>
+          </div>
+        )}
       </div>
     </main>
   );
