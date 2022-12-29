@@ -7,10 +7,11 @@ type ProductsShow = {
 };
 
 export function FilterRange(props: ProductsShow) {
-  let maxPrice = products[0].price;
-  let minPrice = products[1].price;
-
-  function maxminPrice(prodArr: IProducts[]) {
+  function maxminGet(prodArr: IProducts[]) {
+    let maxPrice = 1;
+    let minPrice = 100000;
+    let maxStock = products[0].stock;
+    let minStock = products[1].stock;
     prodArr.forEach((item) => {
       if (item.price > maxPrice) {
         maxPrice = item.price;
@@ -19,12 +20,7 @@ export function FilterRange(props: ProductsShow) {
         minPrice = item.price;
       }
     });
-  }
-  maxminPrice(products);
 
-  let maxStock = products[0].stock;
-  let minStock = products[1].stock;
-  function maxminStock(prodArr: IProducts[]) {
     prodArr.forEach((item) => {
       if (item.stock > maxStock) {
         maxStock = item.stock;
@@ -33,16 +29,15 @@ export function FilterRange(props: ProductsShow) {
         minStock = item.stock;
       }
     });
+    return [minPrice, maxPrice, minStock, maxStock];
   }
-  maxminStock(products);
 
-  const initValue = [minPrice, maxPrice, minStock, maxStock];
+  const initValue = maxminGet(products);
 
   const idList = ['minPrice', 'maxPrice', 'minStock', 'maxStock'];
   const [value, setValue] = useState(initValue);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [maxmin, setMaxmin] = useState([minPrice, maxPrice, minStock, maxStock]);
-  // console.log(maxmin);
+  const [maxmin, setMaxmin] = useState(maxminGet(props.productsShow));
   const isDiff = Boolean(value.find((elem, ind) => elem !== initValue[ind]));
 
   if (searchParams.toString().length === 0 && isDiff) {
@@ -51,7 +46,6 @@ export function FilterRange(props: ProductsShow) {
 
   const updateValue: number[] = [...value];
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-    // const newVal = [...value];
     if (event.target !== null) {
       const eTarget: HTMLInputElement = event.target;
       const indexTarget = idList.indexOf(eTarget.id);
@@ -80,9 +74,8 @@ export function FilterRange(props: ProductsShow) {
   useEffect(() => {
     const valPrice = searchParams.get('priceFilt');
     const valStock = searchParams.get('stockFilt');
-    maxminPrice(props.productsShow);
-    maxminStock(props.productsShow);
-    setMaxmin([minPrice, maxPrice, minStock, maxStock]);
+
+    setMaxmin(maxminGet(props.productsShow));
 
     if (valPrice !== null) {
       const valPriceArr = JSON.parse(valPrice);
@@ -99,6 +92,10 @@ export function FilterRange(props: ProductsShow) {
     setValue(updateValue);
   }, [searchParams]);
 
+  useEffect(() => {
+    setMaxmin(maxminGet(props.productsShow));
+  }, [props.productsShow]);
+
   return (
     <div>
       <div className="filter__price">
@@ -106,19 +103,19 @@ export function FilterRange(props: ProductsShow) {
         <div className="filter__bar">
           <input
             type="range"
-            min={maxmin[0]}
-            max={maxmin[1]}
+            min={initValue[0]}
+            max={initValue[1]}
             step={100}
-            value={value[0]}
+            value={maxmin[0]}
             id={idList[0]}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleOnChange(e)}
           />
           <input
             type="range"
-            min={maxmin[0]}
-            max={maxmin[1]}
+            min={initValue[0]}
+            max={initValue[1]}
             step={100}
-            value={value[1]}
+            value={maxmin[1]}
             id={idList[1]}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleOnChange(e)}
           />
@@ -134,19 +131,19 @@ export function FilterRange(props: ProductsShow) {
         <div className="filter__bar">
           <input
             type="range"
-            min={minStock}
-            max={maxStock}
+            min={initValue[2]}
+            max={initValue[3]}
             step={1}
-            value={value[2]}
+            value={maxmin[2]}
             id={idList[2]}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleOnChange(e)}
           />
           <input
             type="range"
-            min={minStock}
-            max={maxStock}
+            min={initValue[2]}
+            max={initValue[3]}
             step={1}
-            value={value[3]}
+            value={maxmin[3]}
             id={idList[3]}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleOnChange(e)}
           />
