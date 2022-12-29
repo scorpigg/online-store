@@ -7,6 +7,7 @@ import { Header } from './components/Header';
 import { Home } from './pages/Home';
 import { NotFound } from './pages/NotFound';
 import { AppContext } from './appContext';
+import { CarDescription } from './pages/CarDescription';
 
 function App() {
   const [cartItems, setCartItems] = useState<IProducts[]>([]);
@@ -76,6 +77,7 @@ function App() {
             path="/cart"
             element={<Cart onIncreaseItemCount={onIncreaseItemCount} onDecreaseItemCount={onDecreaseItemCount} />}
           />
+          <Route path="/car-description/:id" element={<CarDescription />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <hr />
