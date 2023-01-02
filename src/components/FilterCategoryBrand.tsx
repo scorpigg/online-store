@@ -6,6 +6,10 @@ import { IProducts, products } from '../carBase';
 //   [key: number]: string;
 // };
 
+type StringNumber = {
+  [key: string]: number;
+};
+
 const createUniqueNameList = (prop: string) => {
   let result: string[];
   switch (prop) {
@@ -22,9 +26,35 @@ const createUniqueNameList = (prop: string) => {
   return result;
 };
 
+const countCarsByFilters = (list: string[], arr: IProducts[]) => {
+  const resArr: StringNumber = {};
+
+  list.forEach((elem) => {
+    arr.forEach((car) => {
+      if (!(elem in resArr)) {
+        resArr[elem] = 0;
+      }
+      if (car.category === elem) {
+        resArr[elem] += 1;
+      }
+
+      if (car.brand[0] === elem || car.brand[1] === elem) {
+        if (elem in resArr) {
+          resArr[elem] += 1;
+        } else {
+          resArr[elem] = 1;
+        }
+      }
+    });
+  });
+  return resArr;
+};
+
 const catList = createUniqueNameList('category');
+const numTotalCat = countCarsByFilters(catList, products);
 const brandList = createUniqueNameList('brand');
 brandList.sort();
+const numTotalBrand = countCarsByFilters(brandList, products);
 const checkNameList = catList.concat(brandList);
 const checkboxAmount = catList.length + brandList.length;
 
@@ -124,6 +154,9 @@ export function FilterChckBoxes(props: ProductsShow) {
     return bool;
   }
 
+  const currNumCat = countCarsByFilters(catList, props.productsShow);
+  const currNumBrand = countCarsByFilters(brandList, props.productsShow);
+
   return (
     <div>
       <ul className="filter__categories">
@@ -140,7 +173,10 @@ export function FilterChckBoxes(props: ProductsShow) {
                 onChange={() => handleOnChange(index)}
               />
               <label htmlFor={`custom-checkbox-${index}`} className={isInCat(index) ? '' : 'inactive'}>
-                {elem}
+                {elem}{' '}
+                <span className="filter__count">
+                  {currNumCat[elem]} / {numTotalCat[elem]}
+                </span>
               </label>
             </li>
           );
@@ -164,6 +200,9 @@ export function FilterChckBoxes(props: ProductsShow) {
                 className={isInBrand(index) ? '' : 'inactive'}
               >
                 {elem}
+                <span className="filter__count">
+                  {currNumBrand[elem]} / {numTotalBrand[elem]}
+                </span>
               </label>
             </li>
           );
