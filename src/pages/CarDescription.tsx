@@ -1,11 +1,11 @@
 import React from 'react';
 import { IProducts, products } from '../carBase';
+import { Carousel } from '../components/Carousel';
 
 export function CarDescription() {
   const urlArr = window.location.pathname.split('/');
   const id = urlArr[urlArr.length - 1];
   const numId = Number(id);
-  console.log(id);
   let currCar: IProducts = products[0];
   for (let i = 0; i < products.length; i++) {
     if (numId === products[i].id) {
@@ -14,15 +14,17 @@ export function CarDescription() {
     }
   }
 
-  const breadcrumbs = () => {
-    return `Carfun > ${currCar.category} > ${currCar.brand[0]} > ${currCar.title}`;
-  };
+  // const breadcrumbs = () => {
+  //   return (<a href="/">Carfun</a> &lt; {currCar.category} > {currCar.brand[0]} > {currCar.title}`);
+  // };
 
   return (
     <>
-      <div className="carDescr__breadcrumbs">{breadcrumbs()}</div>
+      <div className="carDescr__breadcrumbs">
+        <a href="/">Carfun</a> &gt; {currCar.category} &gt; {currCar.brand[0]} &gt; {currCar.title}
+      </div>
       <div className="carDescr" key={id}>
-        <div className="carDescr__img" style={{ backgroundImage: `url(../img/cars/${currCar.images[0]})` }}></div>
+        <Carousel arrImages={currCar.images} />
         <div className="card-list__center">
           <p className="carDescr__title">{currCar.title}</p>
           <span className="carDescr__desc">{currCar.description}</span>
