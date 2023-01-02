@@ -150,7 +150,15 @@ export function Home(props: homeProps) {
         />
         <div className={itemsView === 'table' ? 'cards' : 'cards-list'} ref={elemRef}>
           {productsShow
-            .filter((car) => car.title.toLowerCase().includes(searchValue.toLocaleLowerCase()))
+            .filter(
+              (car) =>
+                car.title.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+                car.price.toString().includes(searchValue) ||
+                (itemsView === 'list'
+                  ? car.description.toLowerCase().includes(searchValue.toLocaleLowerCase()) ||
+                    car.rating.toString().includes(searchValue)
+                  : '')
+            )
             .map((car) => (
               <Card {...car} key={car.id} onPlus={(carObj) => props.onAddCartItem(carObj)} />
             ))}

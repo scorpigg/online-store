@@ -1,6 +1,7 @@
 .cart {
   display: flex;
   justify-content: space-between;
+  min-height: calc(100vh - 305px);
 }
 
 .cart-items {
@@ -9,7 +10,8 @@
   flex-direction: column;
 }
 
-.cart-empty {
+.cart-empty,
+.cart-order__completed {
   text-align: center;
   font-size: 2rem;
   font-weight: 500;

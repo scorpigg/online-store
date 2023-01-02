@@ -1,0 +1,143 @@
+.buy-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.buy-modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  z-index: 10;
+}
+
+.buy-form {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $color-light;
+  padding: 20px 30px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+
+  input {
+    width: 100%;
+    background-color: $color-light;
+    border: 1px solid $color-border;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  h4 {
+    margin-bottom: 20px;
+  }
+}
+
+.user,
+.bank-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.bank-card {
+  max-width: 400px;
+  background: linear-gradient(180deg, #89f09c 0%, #3cc755 100%);
+  border: 1px solid $color-border;
+  border-radius: 15px;
+  padding: 20px 20px;
+  padding-top: 15px;
+  margin-bottom: 20px;
+
+  h4 {
+    align-self: center;
+  }
+}
+
+.bank-card__top {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.bank-card__bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+
+  input {
+    margin-bottom: 0;
+  }
+}
+
+.bank-card__img {
+  height: 30px;
+  width: 80px;
+  margin-right: 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.modal-container {
+  position: relative;
+  width: 100%;
+}
+
+.error-text {
+  position: absolute;
+  top: -18px;
+  width: 100%;
+  color: red;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.hide-modal {
+  display: none;
+}
+
+.close-btn {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+
+  &:hover::after,
+  &:hover::before {
+    background-color: $color-btn-check;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(calc(-50% + 1px)) rotate(45deg);
+    width: 25px;
+    height: 2px;
+    background-color: $color-border;
+    @extend %transition;
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+}

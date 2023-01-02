@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { IProducts } from './carBase';
 import { Cart } from './pages/Cart';
 import { Footer } from './components/Footer';
@@ -20,7 +20,6 @@ function App() {
       localStorage.setItem('cars', JSON.stringify([...cartItems, car]));
     }
   };
-  // localStorage.setItem('cars', JSON.stringify([...cartItems]));
 
   useEffect(() => {
     const storageItems = localStorage.getItem('cars');
@@ -65,8 +64,25 @@ function App() {
     setItemsView(view);
   };
 
+  const [isCartSubmit, setIsCartSubmit] = useState(false);
+
+  const navigate = useNavigate();
+  const onCartSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setIsCartSubmit(true);
+    localStorage.clear();
+    setCartItems([]);
+
+    setTimeout(() => {
+      navigate('/');
+      setIsCartSubmit(false);
+    }, 3000);
+  };
+
   return (
-    <AppContext.Provider value={{ cartItems, isItemAdded, itemsCount, itemsView, onItemView }}>
+    <AppContext.Provider
+      value={{ cartItems, isItemAdded, itemsCount, itemsView, onItemView, isCartSubmit, onCartSubmit }}
+    >
       <div className="wrapper">
         <Header />
         <hr />
