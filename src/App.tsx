@@ -8,6 +8,7 @@ import { Home } from './pages/Home';
 import { NotFound } from './pages/NotFound';
 import { AppContext } from './appContext';
 import { CarDescription } from './pages/CarDescription';
+import { useLocation } from 'react-router-dom';
 
 function App() {
   const [cartItems, setCartItems] = useState<IProducts[]>([]);
@@ -60,7 +61,13 @@ function App() {
 
   const itemsCount = cartItems.reduce((acc, item) => acc + item.count, 0);
 
-  const [itemsView, setItemsView] = useState('table');
+  const search = useLocation().search;
+  const viewQuery = new URLSearchParams(search).get('view');
+  let initView = 'table';
+  if (viewQuery) {
+    initView = viewQuery;
+  }
+  const [itemsView, setItemsView] = useState(initView);
 
   const onItemView = (view: string) => {
     setItemsView(view);

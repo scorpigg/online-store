@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import SortList from './SortList';
 import { products } from '../carBase';
 import { AppContext } from '../appContext';
+import { useSearchParams } from 'react-router-dom';
 
 interface IPropsSearch {
   searchValue: string;
@@ -28,6 +29,35 @@ export function ItemsPanel(props: IPropsSearch) {
 
   const { itemsView, onItemView } = useContext(AppContext);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  // const search = useLocation().search;
+  // const viewQuery = new URLSearchParams(search).get('view');
+  // let initView = 'table';
+  // if (viewQuery) {
+  //   initView = viewQuery;
+  // }
+  // const [itemsView, setItemsView] = useState(initView);
+
+  const handlerClick = (val: string) => {
+    // itemsView = val;
+    searchParams.set('view', val);
+    setSearchParams(searchParams);
+  };
+
+  useEffect(() => {
+    const queryView = searchParams.get('view');
+
+    if (queryView !== null) {
+      onItemView(queryView);
+      // setItemsView(queryView);
+    }
+  }, [searchParams]);
+
+  // if (searchParams.get('view') !== itemsView) {
+  //   searchParams.set('view', itemsView);
+  //   setSearchParams(searchParams);
+  // }
+
   return (
     <div className="items__panel">
       <p className="items__count">
@@ -40,11 +70,11 @@ export function ItemsPanel(props: IPropsSearch) {
       </div>
       <div className="items__view">
         <div
-          onClick={() => onItemView('table')}
+          onClick={() => handlerClick('table')}
           className={`view-table ${itemsView === 'table' ? 'view-table_active' : ''}`}
         ></div>
         <div
-          onClick={() => onItemView('list')}
+          onClick={() => handlerClick('list')}
           className={`view-list ${itemsView === 'list' ? 'view-list_active' : ''}`}
         ></div>
       </div>
