@@ -7,6 +7,8 @@ interface IAppContext {
   itemsCount: number;
   itemsView: string;
   onItemView: (view:string) => void;
+  isCartSubmit: boolean;
+  onCartSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const AppContext = createContext<IAppContext>({} as IAppContext);

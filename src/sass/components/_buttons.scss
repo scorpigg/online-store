@@ -32,3 +32,12 @@
   height: 25px;
   font-size: 1.4rem;
 }
+
+.btn-submit {
+  width: 40%;
+
+  &:disabled {
+    cursor: no-drop;
+    background: $color-text-additional-light;
+  }
+}
