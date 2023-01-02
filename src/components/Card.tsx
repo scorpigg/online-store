@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../appContext';
 import { IProducts } from '../carBase';
+import { useNavigate } from 'react-router-dom';
 
 interface IPropsAddItem extends IProducts {
   onPlus: (obj: IProducts) => void;
@@ -12,10 +13,19 @@ export function Card(props: IPropsAddItem) {
   const onAddclick = () => {
     props.onPlus(props);
   };
+  const navigate = useNavigate();
+
+  const openDescription = (id: number) => {
+    navigate('car-description/' + id);
+  };
 
   return itemsView === 'table' ? (
     <div className="card " id={'car' + props.id}>
-      <div className="card__img" style={{ backgroundImage: `url(./img/cars/${props.images[0]})` }}></div>
+      <div
+        className="card__img"
+        style={{ backgroundImage: `url(./img/cars/${props.images[0]})` }}
+        onClick={() => openDescription(props.id)}
+      ></div>
       <p className="card__title">{props.title}</p>
       <div className="card__bottom">
         <div className="card__price">

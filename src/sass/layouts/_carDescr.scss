@@ -1,0 +1,90 @@
+.carDescr {
+  position: relative;
+  min-height: 150px;
+  display: flex;
+  padding: 15px;
+  padding-top: 30px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.carDescr__img {
+  position: relative;
+  min-width: 300px;
+  margin-right: 25px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: -10px;
+    height: 100%;
+    width: 1px;
+    border-right: 1px solid $color-border;
+  }
+}
+
+.card-list__center {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.carDescr__title {
+  font-weight: 500;
+  font-size: 1.8rem;
+  line-height: 2rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.carDescr__desc {
+  line-height: 2rem;
+  display: inline-block;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.card-list__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.carDescr__property {
+  display: flex;
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 3rem;
+
+  .carDescr__propertyName {
+    font-weight: 500;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    color: $color-text-additional;
+    margin-right: 5px;
+  }
+
+  .carDescr__propertyText {
+    display: flex;
+    flex-wrap: wrap;
+    font-weight: 700;
+  }
+}
+
+.carDescr__breadcrumbs {
+  color: $color-text-additional;
+}
+
+.carcarDescr__samplecolor {
+  width: 20px;
+  height: 20px;
+  // background-color: green;
+  position: relative;
+  margin: 5px;
+}
