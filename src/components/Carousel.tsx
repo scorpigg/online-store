@@ -22,7 +22,6 @@ export function Carousel(props: arrImgs) {
     return ind;
   });
   const [items, setItems] = useState(defaultState);
-  // console.log(items);
   const [slide, setSlide] = useState(0);
   let currOrder = items;
   const changeSlide = (direction: number) => {

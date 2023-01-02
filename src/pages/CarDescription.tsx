@@ -14,10 +14,6 @@ export function CarDescription() {
     }
   }
 
-  // const breadcrumbs = () => {
-  //   return (<a href="/">Carfun</a> &lt; {currCar.category} > {currCar.brand[0]} > {currCar.title}`);
-  // };
-
   return (
     <>
       <div className="carDescr__breadcrumbs">
@@ -41,6 +37,9 @@ export function CarDescription() {
             <span className="carDescr__propertyName">Rating:</span>
             <span className="carDescr__propertyText">{currCar.rating}</span>
           </div>
+          <div>
+            <button className="btn">BUY NOW</button>
+          </div>
 
           <div className="card-list__bottom">
             <div className="carDescr__property">
@@ -50,6 +49,7 @@ export function CarDescription() {
 
             <button
               className="card__add-to-cart"
+              title="Add to cart"
               // onClick={onAddclick}
               // style={isItemAdded(currCar.id) ? { backgroundImage: 'url(./img/btn-check.svg' } : undefined}
             ></button>
