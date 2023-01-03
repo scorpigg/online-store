@@ -31,7 +31,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'SUV',
     thumbnail: '',
     images: ['Lamborghini_Urus_01.webp', 'Lamborghini_Urus_02.webp', 'Lamborghini_Urus_03.webp'],
-    count: 1
+    count: 1,
   },
   {
     id: 2,
@@ -48,7 +48,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'SUV',
     thumbnail: '',
     images: ['Lamborghini-Urus-Kids_01.jpg', 'Lamborghini-Urus-Kids_02.jpg', 'Lamborghini-Urus-Kids_03.jpg'],
-    count: 1
+    count: 1,
   },
   {
     id: 3,
@@ -63,8 +63,8 @@ export const products: Array<IProducts> = [
     category: 'Scale car',
     bodyStyle: 'SUV',
     thumbnail: '',
-    images: ['Lamborghini-Urus-scale_01.jpg', 'Lamborghini-Urus-scale_02.jpg', 'Lamborghini-Urus-scale_01.jpg'],
-    count: 1
+    images: ['Lamborghini-Urus-scale_01.jpg', 'Lamborghini-Urus-scale_02.jpg', 'Lamborghini-Urus-scale_03.jpg'],
+    count: 1,
   },
   {
     id: 4,
@@ -84,7 +84,7 @@ export const products: Array<IProducts> = [
       'Lamborghini_Centenario_kids_02.webp',
       'Lamborghini_Centenario_kids_03.webp',
     ],
-    count: 1
+    count: 1,
   },
   {
     id: 5,
@@ -101,7 +101,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'coupe',
     thumbnail: '',
     images: ['Lamborghini-Centenario_01.jpg', 'Lamborghini-Centenario_02.jpg', 'Lamborghini-Centenario_03.jpg'],
-    count: 1
+    count: 1,
   },
   {
     id: 6,
@@ -122,7 +122,7 @@ export const products: Array<IProducts> = [
       'Lamborghini_Centario_scale_02.jpg',
       'Lamborghini_Centario_scale_03.jpg',
     ],
-    count: 1
+    count: 1,
   },
   {
     id: 7,
@@ -140,7 +140,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'coupe',
     thumbnail: '',
     images: ['Mercedes_AMG_kids_01.jpg', 'Mercedes_AMG_kids_02.jpg', 'Mercedes_AMG_kids_03.jpg'],
-    count: 1
+    count: 1,
   },
   {
     id: 8,
@@ -158,7 +158,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'coupe',
     thumbnail: '',
     images: ['Mercedes_AMG_01.webp', 'Mercedes_AMG_02.webp', 'Mercedes_AMG_03.webp'],
-    count: 1
+    count: 1,
   },
   {
     id: 9,
@@ -176,7 +176,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'coupe',
     thumbnail: '',
     images: ['Mercedes_AMG_scale_01.jpg', 'Mercedes_AMG_scale_02.jpg', 'Mercedes_AMG_scale_03.jpg'],
-    count: 1
+    count: 1,
   },
   {
     id: 10,
@@ -194,7 +194,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'cabriolet',
     thumbnail: '',
     images: ['Vilac_vintage_kids_01.webp', 'Vilac_vintage_kids_02.webp', 'Vilac_vintage_kids_03.jpg'],
-    count: 1
+    count: 1,
   },
   {
     id: 11,
@@ -212,7 +212,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'SUV',
     thumbnail: '',
     images: ['Mercedes_G500_kids_01.jpg', 'Mercedes_G500_kids_02.jpg', 'Mercedes_G500_kids_03.jpg'],
-    count: 1
+    count: 1,
   },
   {
     id: 12,
@@ -230,7 +230,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'SUV',
     thumbnail: '',
     images: ['Mercedes_G500_scale_01.jpg', 'Mercedes_G500_scale_02.jpg', 'Mercedes_G500_scale_03.jpg'],
-    count: 1
+    count: 1,
   },
   {
     id: 13,
@@ -248,7 +248,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'SUV',
     thumbnail: '',
     images: ['Mercedes_G500_01.jpg', 'Mercedes_G500_02.jpg', 'Mercedes_G500_03.jpg'],
-    count: 1
+    count: 1,
   },
   {
     id: 14,
@@ -266,7 +266,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'SUV',
     thumbnail: '',
     images: ['Mercedes_GLK-Kids_01.jpg', 'Mercedes_GLK-Kids_02.jpg', 'Mercedes_GLK-Kids_03.jpg'],
-    count: 1
+    count: 1,
   },
   {
     id: 15,
@@ -284,7 +284,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'SUV',
     thumbnail: '',
     images: ['Mercedes_GLK_scale_01.jpg', 'Mercedes_GLK_scale_02.jpg', 'Mercedes_GLK_scale_03.jpg'],
-    count: 1
+    count: 1,
   },
   {
     id: 16,
@@ -301,7 +301,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'SUV',
     thumbnail: '',
     images: ['Mercedes_GLK_01.jpg', 'Mercedes_GLK_02.jpg', 'Mercedes_GLK_03.jpg'],
-    count: 1
+    count: 1,
   },
   {
     id: 17,
@@ -319,7 +319,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'SUV',
     thumbnail: '',
     images: ['RangeRover_Evoque_kids_01.jpg', 'RangeRover_Evoque_kids_02.jpg', 'RangeRover_Evoque_kids_03.jpg'],
-    count: 1
+    count: 1,
   },
   {
     id: 18,
@@ -338,7 +338,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'SUV',
     thumbnail: '',
     images: ['RangeRover_Evoque_scale_01.jpg', 'RangeRover_Evoque_scale_02.jpg', 'RangeRover_Evoque_scale_03.jpg'],
-    count: 1
+    count: 1,
   },
   {
     id: 19,
@@ -355,7 +355,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'SUV',
     thumbnail: '',
     images: ['RangeRover_Evoque_01.jpg', 'RangeRover_Evoque_02.jpg', 'RangeRover_Evoque_03.jpg'],
-    count: 1
+    count: 1,
   },
   {
     id: 20,
@@ -372,7 +372,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'SUV',
     thumbnail: '',
     images: ['RangeRover_Vogue_kids_01.jpg', 'RangeRover_Vogue_kids_02.png', 'RangeRover_Vogue_kids_03.png'],
-    count: 1
+    count: 1,
   },
   {
     id: 21,
@@ -389,7 +389,7 @@ export const products: Array<IProducts> = [
     bodyStyle: 'SUV',
     thumbnail: '',
     images: ['RangeRover_Velar_scale_01.jpg', 'RangeRover_Velar_scale_02.jpg', 'RangeRover_Velar_scale_03.jpg'],
-    count: 1
+    count: 1,
   },
   {
     id: 22,
@@ -405,6 +405,6 @@ export const products: Array<IProducts> = [
     bodyStyle: 'SUV',
     thumbnail: '',
     images: ['RangeRover_Vogue_01.jpg', 'RangeRover_Vogue_02.jpg', 'RangeRover_Vogue_03.jpg'],
-    count: 1
+    count: 1,
   },
 ];
