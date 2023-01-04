@@ -38,6 +38,23 @@
   }
 }
 
+.cart-item__index {
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  margin-right: 25px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: -15px;
+    height: 100%;
+    width: 1px;
+    border-right: 1px solid $color-border;
+  }
+}
+
 .cart-item__img {
   position: relative;
   min-width: 150px;
