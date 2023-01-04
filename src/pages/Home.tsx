@@ -120,16 +120,18 @@ export function Home(props: homeProps) {
   const searchValue = searchParams.get('search') || '';
 
   const onChangeSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const search = event.target.value;
-    if (search) {
-      setSearchParams({ search });
+    const value = event.target.value;
+    if (value) {
+      searchParams.set('search', value);
     } else {
-      setSearchParams({});
+      searchParams.delete('search');
     }
+    setSearchParams(searchParams);
   };
 
   const clearInput = () => {
-    setSearchParams({});
+    searchParams.set('search', '');
+    setSearchParams(searchParams);
   };
 
   //count showing car cards an pass it to ItemsPanel
