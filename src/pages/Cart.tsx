@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { AppContext } from '../appContext';
 import { IProducts } from '../carBase';
 
@@ -221,39 +222,94 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
     isModalClose(!modalClose);
   };
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const cartQueryLimit = searchParams.get('limit') || '3';
+  const cartQueryPage = searchParams.get('page') || '1';
+
+  const lastPageIndex = +cartQueryPage * +cartQueryLimit;
+  const firstPageIndex = lastPageIndex - +cartQueryLimit;
+  const currentItems = cartItems.slice(firstPageIndex, lastPageIndex);
+
+  const handleLimit = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    searchParams.set('limit', value);
+    setSearchParams(searchParams);
+  };
+
+  const increasePage = () => {
+    if (Math.ceil(cartItems.length / +cartQueryLimit) <= +cartQueryPage) {
+      searchParams.set('page', cartQueryPage);
+    } else {
+      searchParams.set('page', (+cartQueryPage + 1).toString());
+    }
+    setSearchParams(searchParams);
+  };
+  const decreasePage = () => {
+    if (+cartQueryPage <= 1) {
+      searchParams.set('page', cartQueryPage);
+    } else {
+      searchParams.set('page', (+cartQueryPage - 1).toString());
+    }
+    setSearchParams(searchParams);
+  };
+
   return cartItems.length === 0 && !isCartSubmit ? (
     <p className="cart-empty">Cart is empty. Add items, please</p>
   ) : !isCartSubmit ? (
     <div className="cart">
-      <div className="cart-items">
-        {cartItems.map((cartItem) => (
-          <div className="cart-item" key={cartItem.id}>
-            <div className="cart-item__img" style={{ backgroundImage: `url(./img/cars/${cartItem.images[0]})` }}></div>
-            <div className="cart-item__center">
-              <p className="cart-item__title">{cartItem.title}</p>
-              <span className="cart-item__desc">{cartItem.description}</span>
-              <div className="cart-item__bottom">
-                <div className="cart-item__price">
-                  <span className="price-text">Price:</span>
-                  <p className="price-value">&euro;{cartItem.price}</p>
-                </div>
-                <div className="cart-item__rating">
-                  <span className="rating-text">Rating:</span>
-                  <span className="rating-value">{cartItem.rating}</span>
-                </div>
-                <div className="cart-item__stock">
-                  <span className="stock-text">Stock:</span>
-                  <span className="stock-value">{cartItem.stock}</span>
+      <div className="cart-items__wrapper">
+        <div className="cart-items__header">
+          <h3 className="cart-items__title">Products in cart</h3>
+          <div className="cart-items__limit">
+            <label htmlFor="cart-limit">Limit: </label>
+            <input id="cart-limit" type="number" name="limit" value={cartQueryLimit} onChange={handleLimit} />
+          </div>
+          <div className="cart-items__page">
+            <span>Page: </span>
+            <button onClick={decreasePage} className="cart-items__prev-page">
+              &lt;
+            </button>
+            <span className="cart-items__current-page">{cartQueryPage}</span>
+            <button onClick={increasePage} className="cart-items-next-page">
+              &gt;
+            </button>
+          </div>
+        </div>
+        <div className="cart-items">
+          {currentItems.map((cartItem, i) => (
+            <div className="cart-item" key={cartItem.id}>
+              <div className="cart-item__index">{i + 1}</div>
+              <div
+                className="cart-item__img"
+                style={{ backgroundImage: `url(./img/cars/${cartItem.images[0]})` }}
+              ></div>
+              <div className="cart-item__center">
+                <p className="cart-item__title">{cartItem.title}</p>
+                <span className="cart-item__desc">{cartItem.description}</span>
+                <div className="cart-item__bottom">
+                  <div className="cart-item__price">
+                    <span className="price-text">Price:</span>
+                    <p className="price-value">&euro;{cartItem.price}</p>
+                  </div>
+                  <div className="cart-item__rating">
+                    <span className="rating-text">Rating:</span>
+                    <span className="rating-value">{cartItem.rating}</span>
+                  </div>
+                  <div className="cart-item__stock">
+                    <span className="stock-text">Stock:</span>
+                    <span className="stock-value">{cartItem.stock}</span>
+                  </div>
                 </div>
               </div>
+              <div className="cart-item__right">
+                <button onClick={() => onClickPlus(cartItem)}>+</button>
+                <span className="cart-item__count">{cartItem.count}</span>
+                <button onClick={() => onClickMinus(cartItem)}>-</button>
+              </div>
             </div>
-            <div className="cart-item__right">
-              <button onClick={() => onClickPlus(cartItem)}>+</button>
-              <span className="cart-item__count">{cartItem.count}</span>
-              <button onClick={() => onClickMinus(cartItem)}>-</button>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       <div className="cart-summary">
         <h3 className="cart-summary__title">Summary</h3>

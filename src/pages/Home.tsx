@@ -3,7 +3,7 @@ import { Card } from '../components/Card';
 import { Filter } from '../components/Filter';
 import { IProducts, products } from '../carBase';
 import { ItemsPanel } from '../components/ItemsPanel';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { AppContext } from '../appContext';
 
 type homeProps = {
@@ -116,13 +116,20 @@ export function Home(props: homeProps) {
     }
   }
 
-  const [searchValue, setSearchValue] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchValue = searchParams.get('search') || '';
+
   const onChangeSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
+    const search = event.target.value;
+    if (search) {
+      setSearchParams({ search });
+    } else {
+      setSearchParams({});
+    }
   };
 
   const clearInput = () => {
-    setSearchValue('');
+    setSearchParams({});
   };
 
   //count showing car cards an pass it to ItemsPanel
