@@ -41,7 +41,11 @@ export function Card(props: IPropsAddItem) {
     </div>
   ) : (
     <div className="card-list" key={props.id}>
-      <div className="card-list__img" style={{ backgroundImage: `url(./img/cars/${props.images[0]})` }}></div>
+      <div
+        className="card-list__img"
+        style={{ backgroundImage: `url(./img/cars/${props.images[0]})` }}
+        onClick={() => openDescription(props.id)}
+      ></div>
       <div className="card-list__center">
         <p className="card-list__title">{props.title}</p>
         <span className="card-list__desc">{props.description}</span>
