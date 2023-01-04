@@ -175,7 +175,7 @@ export function FilterChckBoxes(props: ProductsShow) {
               <label htmlFor={`custom-checkbox-${index}`} className={isInCat(index) ? '' : 'inactive'}>
                 {elem}{' '}
                 <span className="filter__count">
-                  {currNumCat[elem]} / {numTotalCat[elem]}
+                  {currNumCat[elem] ? currNumCat[elem] : 0} / {numTotalCat[elem]}
                 </span>
               </label>
             </li>
@@ -201,7 +201,7 @@ export function FilterChckBoxes(props: ProductsShow) {
               >
                 {elem}
                 <span className="filter__count">
-                  {currNumBrand[elem]} / {numTotalBrand[elem]}
+                  {currNumBrand[elem] ? currNumBrand[elem] : 0} / {numTotalBrand[elem]}
                 </span>
               </label>
             </li>
