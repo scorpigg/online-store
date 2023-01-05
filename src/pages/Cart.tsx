@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AppContext } from '../appContext';
 import { IProducts } from '../carBase';
 
@@ -9,7 +9,7 @@ interface ICartProps {
 }
 
 export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
-  const { cartItems, itemsCount, onCartSubmit, isCartSubmit } = useContext(AppContext);
+  const { cartItems, itemsCount, onCartSubmit, isCartSubmit, buyModalClose, modalClose } = useContext(AppContext);
   const totalPrice = cartItems.reduce((acc, el) => acc + el.price * el.count, 0);
   const totalPriceWithDiscount = Math.round(
     cartItems.reduce(
@@ -216,12 +216,6 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
     }
   }, [nameError, phoneError, addressError, emailError, cardNumberError, cardValidityError, cardCVVError]);
 
-  const [modalClose, isModalClose] = useState(true);
-
-  const onModalClose = () => {
-    isModalClose(!modalClose);
-  };
-
   const [searchParams, setSearchParams] = useSearchParams();
 
   const cartQueryLimit = searchParams.get('limit') === null ? '3' : searchParams.get('limit') || '';
@@ -259,6 +253,16 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
     setSearchParams(searchParams);
   };
 
+  const navigate = useNavigate();
+
+  const handleCarPage = (e: React.MouseEvent<HTMLDivElement>, id: number) => {
+    const target = e.target as Element;
+
+    if (!target.closest('button')) {
+      navigate('/car-description/' + id);
+    }
+  };
+
   return cartItems.length === 0 && !isCartSubmit ? (
     <p className="cart-empty">Cart is empty. Add items, please</p>
   ) : !isCartSubmit ? (
@@ -283,7 +287,7 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
         </div>
         <div className="cart-items">
           {currentItems.map((cartItem, i) => (
-            <div className="cart-item" key={cartItem.id}>
+            <div className="cart-item" key={cartItem.id} onClick={(e) => handleCarPage(e, cartItem.id)}>
               <div className="cart-item__index">{i + 1 + (+cartQueryPage - 1) * +cartQueryLimit}</div>
               <div
                 className="cart-item__img"
@@ -348,14 +352,14 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
           </div>
         )}
         <span className="cart-summary__promo-text">Promo for test: 'RS'</span>
-        <button onClick={onModalClose} className="cart-summary__buy-btn btn">
+        <button onClick={buyModalClose} className="cart-summary__buy-btn btn">
           Buy now
         </button>
       </div>
       <div className={`buy-modal ${modalClose && 'hide-modal'}`}>
-        <div onClick={onModalClose} className="buy-modal__overlay"></div>
+        <div onClick={buyModalClose} className="buy-modal__overlay"></div>
         <form className="buy-form">
-          <div onClick={onModalClose} className="close-btn"></div>
+          <div onClick={buyModalClose} className="close-btn"></div>
           <div className="user">
             <h4 className="user__title">Personal details</h4>
             <div className="modal-container">

@@ -87,15 +87,32 @@ function App() {
     }, 3000);
   };
 
+  const [modalClose, setModalClose] = useState(true);
+
+  const buyModalClose = () => {
+    setModalClose(!modalClose);
+  };
+
   return (
     <AppContext.Provider
-      value={{ cartItems, isItemAdded, itemsCount, itemsView, onItemView, isCartSubmit, onCartSubmit }}
+      value={{
+        cartItems,
+        isItemAdded,
+        itemsCount,
+        itemsView,
+        onItemView,
+        isCartSubmit,
+        onCartSubmit,
+        onAddCartItem,
+        buyModalClose,
+        modalClose,
+      }}
     >
       <div className="wrapper">
         <Header />
         <hr />
         <Routes>
-          <Route path="/" element={<Home onAddCartItem={onAddCartItem} />} />
+          <Route path="/" element={<Home />} />
           <Route
             path="/cart"
             element={<Cart onIncreaseItemCount={onIncreaseItemCount} onDecreaseItemCount={onDecreaseItemCount} />}

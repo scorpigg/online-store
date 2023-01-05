@@ -9,6 +9,9 @@ interface IAppContext {
   onItemView: (view:string) => void;
   isCartSubmit: boolean;
   onCartSubmit: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onAddCartItem: (car: IProducts) => void;
+  buyModalClose: () => void;
+  modalClose: boolean;
 }
 
 export const AppContext = createContext<IAppContext>({} as IAppContext);

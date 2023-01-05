@@ -6,11 +6,7 @@ import { ItemsPanel } from '../components/ItemsPanel';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { AppContext } from '../appContext';
 
-type homeProps = {
-  onAddCartItem: (car: IProducts) => void;
-};
-
-export function Home(props: homeProps) {
+export function Home() {
   const search = useLocation().search;
   let productsShow: Array<IProducts> = [...products];
 
@@ -169,7 +165,7 @@ export function Home(props: homeProps) {
                   : '')
             )
             .map((car) => (
-              <Card {...car} key={car.id} onPlus={(carObj) => props.onAddCartItem(carObj)} />
+              <Card {...car} key={car.id} />
             ))}
         </div>
         {!numShowCars && (
