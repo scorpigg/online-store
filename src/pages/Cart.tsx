@@ -224,7 +224,7 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const cartQueryLimit = searchParams.get('limit') || '3';
+  const cartQueryLimit = searchParams.get('limit') === null ? '3' : searchParams.get('limit') || '';
   const cartQueryPage = searchParams.get('page') || '1';
 
   const lastPageIndex = +cartQueryPage * +cartQueryLimit;
@@ -232,7 +232,10 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
   const currentItems = cartItems.slice(firstPageIndex, lastPageIndex);
 
   const handleLimit = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
+    let value = event.target.value;
+    if (+value > cartItems.length) {
+      value = cartItems.length.toString();
+    }
     searchParams.set('limit', value);
     setSearchParams(searchParams);
   };
@@ -240,6 +243,8 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
   const increasePage = () => {
     if (Math.ceil(cartItems.length / +cartQueryLimit) <= +cartQueryPage) {
       searchParams.set('page', cartQueryPage);
+    } else if (!+cartQueryLimit) {
+      searchParams.set('page', '1');
     } else {
       searchParams.set('page', (+cartQueryPage + 1).toString());
     }
@@ -279,7 +284,7 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
         <div className="cart-items">
           {currentItems.map((cartItem, i) => (
             <div className="cart-item" key={cartItem.id}>
-              <div className="cart-item__index">{i + 1}</div>
+              <div className="cart-item__index">{i + 1 + (+cartQueryPage - 1) * +cartQueryLimit}</div>
               <div
                 className="cart-item__img"
                 style={{ backgroundImage: `url(./img/cars/${cartItem.images[0]})` }}
