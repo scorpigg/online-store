@@ -10,17 +10,19 @@
 }
 
 .carDescr__imgbox {
+  position: relative;
   display: inline-flex;
   align-items: center;
+  margin-right: 10px;
 
-  // &::after {
-  //   content: '';
-  //   position: absolute;
-  //   left: 400px;
-  //   height: 100%;
-  //   width: 1px;
-  //   border-right: 1px solid $color-border;
-  // }
+  &::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    height: 100%;
+    width: 1px;
+    border-right: 1px solid $color-border;
+  }
 
   .carDescr_arrow {
     width: 35px;
@@ -33,6 +35,7 @@
   }
 
   .left {
+    cursor: pointer;
     background-image: url(../../../public/img/arrow_left.svg);
   }
 
@@ -41,6 +44,7 @@
   }
 
   .right {
+    cursor: pointer;
     background-image: url(../../../public/img/arrow_right.svg);
     margin-right: 15px;
   }
@@ -72,6 +76,7 @@
   background-size: contain;
   background-position: center;
   @extend %transition;
+  cursor: pointer;
 
   .prev {
     transform: translateX(-100%);
@@ -130,6 +135,7 @@
     display: flex;
     flex-wrap: wrap;
     font-weight: 700;
+    text-transform: uppercase;
   }
 }
 
@@ -205,10 +211,25 @@
   .right {
     left: 30px;
     background-image: url(../../../public/img/arrow_right.svg);
+    cursor: pointer;
   }
 
   .left {
     right: 30px;
     background-image: url(../../../public/img/arrow_left.svg);
+    cursor: pointer;
   }
+}
+
+.cardDescr__container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardDescr__bottom {
+  display: flex;
+  gap: 20px;
+  margin-top: auto;
 }
