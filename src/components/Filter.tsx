@@ -22,6 +22,7 @@ export function Filter(props: ProductsShow) {
     searchParams.delete('brand');
     searchParams.delete('priceFilt');
     searchParams.delete('stockFilt');
+    searchParams.delete('search');
     setSearchParams(searchParams);
   };
 
