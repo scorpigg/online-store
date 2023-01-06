@@ -135,9 +135,8 @@ export function Home(props: homeProps) {
   };
 
   //count showing car cards an pass it to ItemsPanel
-  const { visibleCars, setVisibleCars } = useContext(AppContext);
+  const { setVisibleCars } = useContext(AppContext);
   const [numCarCards, setNumCarCards] = useState(0);
-  // const [vsbleCars, setVsbleCars] = useState(products);
   const elemRef = useRef(null);
   let visCars: IProducts[] = [];
   useEffect(() => {
@@ -150,25 +149,14 @@ export function Home(props: homeProps) {
         visCars.push(products[+nodes[i].id.slice(3, 5) - 1]);
       }
       setVisibleCars(visCars);
-      // setVsbleCars(visibleCars);
-      // console.log('home visinle.Cars.length ' + visibleCars.length);
-      // console.log('home vCars.length ' + vCars.length);
     }
   }, [searchParams]);
-  // const numShowCars = numCarCards;
-
-  useEffect(() => {
-    // setVCars(visibleCars);
-    // setVsbleCars(visibleCars);
-    // console.log('home visinle.Cars.length ' + visibleCars.length);
-    // console.log('home vCars.length ' + visibleCars.length);
-  }, [visibleCars]);
 
   const { itemsView } = useContext(AppContext);
 
   return (
     <main>
-      <Filter productsShow={productsShow} />
+      <Filter />
       <div className="main-container">
         <ItemsPanel
           onChange={onChangeSearchInput}

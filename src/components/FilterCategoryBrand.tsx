@@ -3,10 +3,6 @@ import { useSearchParams } from 'react-router-dom';
 import { IProducts, products } from '../carBase';
 import { AppContext } from '../appContext';
 
-// type obj = {
-//   [key: number]: string;
-// };
-
 type StringNumber = {
   [key: string]: number;
 };
@@ -59,16 +55,7 @@ const numTotalBrand = countCarsByFilters(brandList, products);
 const checkNameList = catList.concat(brandList);
 const checkboxAmount = catList.length + brandList.length;
 
-type ProductsShow = {
-  productsShow: IProducts[];
-};
-
-// type VisibleCars = {
-//   visibleCars: IProducts[];
-// };
-
-export function FilterChckBoxes(props: ProductsShow) {
-  // console.log('filter checkboxes props.visibleCars.length ' + props.visibleCars.length);
+export function FilterChckBoxes() {
   const [checkedState, setCheckedState] = useState(new Array(checkboxAmount).fill(false));
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -118,49 +105,8 @@ export function FilterChckBoxes(props: ProductsShow) {
     setSearchParams(searchParams);
   };
 
-  // const [visibleCars, setVisibleCars] = useState(props.productsShow);
-  // const getSearch = searchParams.get('search');
-  // console.log(getSearch);
-  // console.log('visibleCars.length before');
-  // console.log(visibleCars.length);
-  // if (getSearch !== null) {
-  //   setVisibleCars(
-  //     props.productsShow.filter((car) => {
-  //       return (
-  //         car.title.toLowerCase().includes(getSearch.toLocaleLowerCase()) ||
-  //         car.price.toString().includes(getSearch) ||
-  //         car.description.toLowerCase().includes(getSearch.toLocaleLowerCase()) ||
-  //         car.rating.toString().includes(getSearch)
-  //       );
-  //     })
-  //   );
-  // }
-  // console.log('visibleCars.length0');
-  // console.log(visibleCars.length);
-
-  // console.log(props.productsShow.length);
   const { visibleCars } = useContext(AppContext);
   useEffect(() => {
-    // console.log(visibleCars.length);
-    // const getSearch = searchParams.get('search');
-    // console.log(getSearch);
-    // console.log('vsbleCars.length before');
-    // console.log(visibleCars.length);
-    // if (getSearch !== null) {
-    //   setVisibleCars(
-    //     props.productsShow.filter((car) => {
-    //       return (
-    //         car.title.toLowerCase().includes(getSearch.toLocaleLowerCase()) ||
-    //         car.price.toString().includes(getSearch) ||
-    //         car.description.toLowerCase().includes(getSearch.toLocaleLowerCase()) ||
-    //         car.rating.toString().includes(getSearch)
-    //       );
-    //     })
-    //   );
-    // // }
-    // console.log('props.visibleCars.length useEffrct checkboxes:');
-    // console.log(props.visibleCars.length);
-
     const checkBrand = searchParams.get('brand');
     const checkCat = searchParams.get('cat');
     const updatedCheckedState: boolean[] = new Array(checkboxAmount).fill(false);
@@ -182,9 +128,7 @@ export function FilterChckBoxes(props: ProductsShow) {
     setCheckedState(updatedCheckedState);
   }, [searchParams]);
 
-  useEffect(() => {
-    // console.log('filter checkboxes ' + visibleCars.length);
-  }, [visibleCars]);
+  useEffect(() => {}, [visibleCars]);
 
   function isInCat(index: number) {
     let bool = false;
