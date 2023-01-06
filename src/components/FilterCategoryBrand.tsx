@@ -25,7 +25,6 @@ const createUniqueNameList = (prop: string) => {
 
 const countCarsByFilters = (list: string[], arr: IProducts[]) => {
   const resArr: StringNumber = {};
-
   list.forEach((elem) => {
     arr.forEach((car) => {
       if (!(elem in resArr)) {

@@ -40,7 +40,7 @@ export function Card(props: IPropsAddItem) {
       </div>
     </div>
   ) : (
-    <div className="card-list" key={props.id}>
+    <div className="card-list" key={props.id} id={'car' + props.id}>
       <div
         className="card-list__img"
         style={{ backgroundImage: `url(./img/cars/${props.images[0]})` }}

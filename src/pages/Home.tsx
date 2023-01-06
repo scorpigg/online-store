@@ -138,13 +138,14 @@ export function Home(props: homeProps) {
   const { setVisibleCars } = useContext(AppContext);
   const [numCarCards, setNumCarCards] = useState(0);
   const elemRef = useRef(null);
-  let visCars: IProducts[] = [];
+
   useEffect(() => {
     if (elemRef.current !== null) {
       const currRef: HTMLDivElement = elemRef.current;
       setNumCarCards(currRef.childNodes.length);
       const nodes = currRef.children;
-      visCars = [];
+      const visCars: IProducts[] = [];
+      console.log(nodes[1]);
       for (let i = 0; i < nodes.length; i += 1) {
         visCars.push(products[+nodes[i].id.slice(3, 5) - 1]);
       }
