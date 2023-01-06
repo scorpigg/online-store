@@ -1,23 +1,18 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { IProducts } from '../carBase';
 import { FilterChckBoxes } from './FilterCategoryBrand';
 import { FilterRange } from './FilterPriceStock';
 
-type ProductsShow = {
-  productsShow: IProducts[];
-};
-
-export function Filter(props: ProductsShow) {
+export function Filter() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [textBtn, setTextBtn] = useState('copy link');
-  // console.log(props.productsShow[0]);
 
   const doReset = () => {
     searchParams.delete('cat');
     searchParams.delete('brand');
     searchParams.delete('priceFilt');
     searchParams.delete('stockFilt');
+    searchParams.delete('search');
     setSearchParams(searchParams);
   };
 
@@ -31,8 +26,8 @@ export function Filter(props: ProductsShow) {
     <form className="filter">
       <h4 className="filter__title">Filter</h4>
       <div className="filter__container">
-        <FilterChckBoxes productsShow={props.productsShow} />
-        <FilterRange productsShow={props.productsShow} />
+        <FilterChckBoxes />
+        <FilterRange />
         <button className="btn filter__btn-reset" type="reset" onClick={doReset}>
           Reset filters
         </button>

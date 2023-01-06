@@ -132,27 +132,34 @@ export function Home() {
   };
 
   //count showing car cards an pass it to ItemsPanel
+  const { setVisibleCars } = useContext(AppContext);
   const [numCarCards, setNumCarCards] = useState(0);
   const elemRef = useRef(null);
+
   useEffect(() => {
     if (elemRef.current !== null) {
       const currRef: HTMLDivElement = elemRef.current;
       setNumCarCards(currRef.childNodes.length);
+      const nodes = currRef.children;
+      const visCars: IProducts[] = [];
+      for (let i = 0; i < nodes.length; i += 1) {
+        visCars.push(products[+nodes[i].id.slice(3, 5) - 1]);
+      }
+      setVisibleCars(visCars);
     }
-  }, [productsShow]);
-  const numShowCars = numCarCards;
+  }, [searchParams]);
 
   const { itemsView } = useContext(AppContext);
 
   return (
     <main>
-      <Filter productsShow={productsShow} />
+      <Filter />
       <div className="main-container">
         <ItemsPanel
           onChange={onChangeSearchInput}
           searchValue={searchValue}
           clearInput={clearInput}
-          numShowCars={numShowCars}
+          numShowCars={numCarCards}
         />
         <div className={itemsView === 'table' ? 'cards' : 'cards-list'} ref={elemRef}>
           {productsShow
@@ -169,7 +176,7 @@ export function Home() {
               <Card {...car} key={car.id} />
             ))}
         </div>
-        {!numShowCars && (
+        {!numCarCards && (
           <div className="show">
             <p className="nocars">There's no one car according to your query</p>
           </div>
