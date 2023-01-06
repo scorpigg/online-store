@@ -93,6 +93,12 @@ function App() {
     }, 3000);
   };
 
+  const [modalClose, setModalClose] = useState(true);
+
+  const buyModalClose = () => {
+    setModalClose(!modalClose);
+  };
+
   return (
     <AppContext.Provider
       value={{
