@@ -103,6 +103,9 @@ function App() {
         onItemView,
         isCartSubmit,
         onCartSubmit,
+        onAddCartItem,
+        buyModalClose,
+        modalClose,
         visibleCars,
         setVisibleCars,
       }}
