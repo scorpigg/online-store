@@ -135,15 +135,34 @@ export function Home(props: homeProps) {
   };
 
   //count showing car cards an pass it to ItemsPanel
+  const { visibleCars, setVisibleCars } = useContext(AppContext);
   const [numCarCards, setNumCarCards] = useState(0);
+  // const [vsbleCars, setVsbleCars] = useState(products);
   const elemRef = useRef(null);
+  let visCars: IProducts[] = [];
   useEffect(() => {
     if (elemRef.current !== null) {
       const currRef: HTMLDivElement = elemRef.current;
       setNumCarCards(currRef.childNodes.length);
+      const nodes = currRef.children;
+      visCars = [];
+      for (let i = 0; i < nodes.length; i += 1) {
+        visCars.push(products[+nodes[i].id.slice(3, 5) - 1]);
+      }
+      setVisibleCars(visCars);
+      // setVsbleCars(visibleCars);
+      // console.log('home visinle.Cars.length ' + visibleCars.length);
+      // console.log('home vCars.length ' + vCars.length);
     }
-  }, [productsShow]);
-  const numShowCars = numCarCards;
+  }, [searchParams]);
+  // const numShowCars = numCarCards;
+
+  useEffect(() => {
+    // setVCars(visibleCars);
+    // setVsbleCars(visibleCars);
+    // console.log('home visinle.Cars.length ' + visibleCars.length);
+    // console.log('home vCars.length ' + visibleCars.length);
+  }, [visibleCars]);
 
   const { itemsView } = useContext(AppContext);
 
@@ -155,7 +174,7 @@ export function Home(props: homeProps) {
           onChange={onChangeSearchInput}
           searchValue={searchValue}
           clearInput={clearInput}
-          numShowCars={numShowCars}
+          numShowCars={numCarCards}
         />
         <div className={itemsView === 'table' ? 'cards' : 'cards-list'} ref={elemRef}>
           {productsShow
@@ -172,7 +191,7 @@ export function Home(props: homeProps) {
               <Card {...car} key={car.id} onPlus={(carObj) => props.onAddCartItem(carObj)} />
             ))}
         </div>
-        {!numShowCars && (
+        {!numCarCards && (
           <div className="show">
             <p className="nocars">There's no one car according to your query</p>
           </div>

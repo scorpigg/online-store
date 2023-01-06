@@ -1,7 +1,8 @@
-import { ChangeEvent, useState, useEffect, useCallback } from 'react';
+import { ChangeEvent, useState, useEffect, useCallback, useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { IProducts, products } from '../carBase';
 import { debounce } from 'lodash';
+import { AppContext } from '../appContext';
 
 type ProductsShow = {
   productsShow: IProducts[];
@@ -11,6 +12,7 @@ export function FilterRange(props: ProductsShow) {
   const [priceTitle, setPriceTitle] = useState('Price');
   const [stockTitle, setStockTitle] = useState('Stock');
   const idList = ['minPrice', 'maxPrice', 'minStock', 'maxStock'];
+  const { visibleCars } = useContext(AppContext);
 
   function maxminGet(prodArr: IProducts[]) {
     let maxPrice = 0;
@@ -20,7 +22,7 @@ export function FilterRange(props: ProductsShow) {
     if (prodArr.length === 0) {
       return [70, 200000, 1, 110];
     }
-    // priceTitle = 'Price';
+    // priceTitle = 'Price';pro
     // stockTitle = 'Stock';
     prodArr.forEach((item) => {
       if (item.price > maxPrice) {
@@ -107,33 +109,47 @@ export function FilterRange(props: ProductsShow) {
 
   const [catQuery, setCatQuery] = useState(searchParams.get('cat'));
   const [brandQuery, setBrandQuery] = useState(searchParams.get('brand'));
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('search'));
 
   useEffect(() => {
-    setValues(queryToValues());
-    // console.log('brand');
-    const catQueryNew = searchParams.get('cat');
-    const brandQueryNew = searchParams.get('brand');
-    if (catQuery !== catQueryNew || brandQuery !== brandQueryNew) {
-      setCatQuery(catQueryNew);
-      setBrandQuery(brandQueryNew);
-      if (props.productsShow.length !== 0) {
-        setValues(maxminGet(props.productsShow));
-      }
-    } else {
-      setValues(queryToValues());
-    }
-  }, [searchParams]);
+    // setValues(queryToValues());
+    // // console.log('brand');
+    // const catQueryNew = searchParams.get('cat');
+    // const brandQueryNew = searchParams.get('brand');
+    // if (catQuery !== catQueryNew || brandQuery !== brandQueryNew) {
+    //   setCatQuery(catQueryNew);
+    //   setBrandQuery(brandQueryNew);
+    //   if (visibleCars.length !== 0) {
+    //     setValues(maxminGet(visibleCars));
+    //   }
+    // } else {
+    //   setValues(queryToValues());
+    // }
+  }, [searchParams, visibleCars]);
 
   useEffect(() => {
-    // console.log(props.productsShow.length);
-    if (props.productsShow.length === 0) {
+    // console.log(visibleCars.length);
+    if (visibleCars.length === 0) {
       setPriceTitle('Not Found');
       setStockTitle('Not Found');
     } else {
       setPriceTitle('Price');
       setStockTitle('Stock');
     }
-  }, [props.productsShow]);
+    const catQueryNew = searchParams.get('cat');
+    const brandQueryNew = searchParams.get('brand');
+    const searchQueryNew = searchParams.get('search');
+    if (catQuery !== catQueryNew || brandQuery !== brandQueryNew || searchQuery !== searchQueryNew) {
+      setCatQuery(catQueryNew);
+      setBrandQuery(brandQueryNew);
+      setSearchQuery(searchQueryNew);
+      if (visibleCars.length !== 0) {
+        setValues(maxminGet(visibleCars));
+      }
+    } else {
+      setValues(queryToValues());
+    }
+  }, [visibleCars]);
 
   return (
     <div>
