@@ -36,7 +36,7 @@ export function Card(props: IProducts) {
       </div>
     </div>
   ) : (
-    <div className="card-list" onClick={(e) => openDescription(e, props.id)} key={props.id}>
+    <div className="card-list" onClick={(e) => openDescription(e, props.id)} key={props.id} id={'car' + props.id}>
       <div className="card-list__img" style={{ backgroundImage: `url(./img/cars/${props.images[0]})` }}></div>
       <div className="card-list__center">
         <p className="card-list__title">{props.title}</p>

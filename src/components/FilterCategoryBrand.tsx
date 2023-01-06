@@ -1,10 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { IProducts, products } from '../carBase';
-
-// type obj = {
-//   [key: number]: string;
-// };
+import { AppContext } from '../appContext';
 
 type StringNumber = {
   [key: string]: number;
@@ -28,7 +25,6 @@ const createUniqueNameList = (prop: string) => {
 
 const countCarsByFilters = (list: string[], arr: IProducts[]) => {
   const resArr: StringNumber = {};
-
   list.forEach((elem) => {
     arr.forEach((car) => {
       if (!(elem in resArr)) {
@@ -58,11 +54,7 @@ const numTotalBrand = countCarsByFilters(brandList, products);
 const checkNameList = catList.concat(brandList);
 const checkboxAmount = catList.length + brandList.length;
 
-type ProductsShow = {
-  productsShow: IProducts[];
-};
-
-export function FilterChckBoxes(props: ProductsShow) {
+export function FilterChckBoxes() {
   const [checkedState, setCheckedState] = useState(new Array(checkboxAmount).fill(false));
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -112,6 +104,7 @@ export function FilterChckBoxes(props: ProductsShow) {
     setSearchParams(searchParams);
   };
 
+  const { visibleCars } = useContext(AppContext);
   useEffect(() => {
     const checkBrand = searchParams.get('brand');
     const checkCat = searchParams.get('cat');
@@ -134,9 +127,11 @@ export function FilterChckBoxes(props: ProductsShow) {
     setCheckedState(updatedCheckedState);
   }, [searchParams]);
 
+  useEffect(() => {}, [visibleCars]);
+
   function isInCat(index: number) {
     let bool = false;
-    props.productsShow.forEach((elem) => {
+    visibleCars.forEach((elem) => {
       if (catList[index] === elem.category) {
         bool = true;
       }
@@ -146,7 +141,7 @@ export function FilterChckBoxes(props: ProductsShow) {
 
   function isInBrand(index: number) {
     let bool = false;
-    props.productsShow.forEach((elem) => {
+    visibleCars.forEach((elem) => {
       if (brandList[index] === elem.brand[0] || brandList[index] === elem.brand[1]) {
         bool = true;
       }
@@ -154,8 +149,8 @@ export function FilterChckBoxes(props: ProductsShow) {
     return bool;
   }
 
-  const currNumCat = countCarsByFilters(catList, props.productsShow);
-  const currNumBrand = countCarsByFilters(brandList, props.productsShow);
+  const currNumCat = countCarsByFilters(catList, visibleCars);
+  const currNumBrand = countCarsByFilters(brandList, visibleCars);
 
   return (
     <div>

@@ -30,16 +30,8 @@ export function ItemsPanel(props: IPropsSearch) {
   const { itemsView, onItemView } = useContext(AppContext);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  // const search = useLocation().search;
-  // const viewQuery = new URLSearchParams(search).get('view');
-  // let initView = 'table';
-  // if (viewQuery) {
-  //   initView = viewQuery;
-  // }
-  // const [itemsView, setItemsView] = useState(initView);
 
   const handlerClick = (val: string) => {
-    // itemsView = val;
     searchParams.set('view', val);
     setSearchParams(searchParams);
   };
@@ -49,14 +41,8 @@ export function ItemsPanel(props: IPropsSearch) {
 
     if (queryView !== null) {
       onItemView(queryView);
-      // setItemsView(queryView);
     }
   }, [searchParams]);
-
-  // if (searchParams.get('view') !== itemsView) {
-  //   searchParams.set('view', itemsView);
-  //   setSearchParams(searchParams);
-  // }
 
   return (
     <div className="items__panel">

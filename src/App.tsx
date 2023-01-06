@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { IProducts } from './carBase';
+import { IProducts, products } from './carBase';
 import { Cart } from './pages/Cart';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
@@ -72,6 +72,12 @@ function App() {
     setItemsView(view);
   };
 
+  const [visibleCars, setVisCars] = useState(products);
+
+  const setVisibleCars = (showCars: IProducts[]) => {
+    setVisCars(showCars);
+  };
+
   const [isCartSubmit, setIsCartSubmit] = useState(false);
 
   const navigate = useNavigate();
@@ -106,6 +112,8 @@ function App() {
         onAddCartItem,
         buyModalClose,
         modalClose,
+        visibleCars,
+        setVisibleCars,
       }}
     >
       <div className="wrapper">

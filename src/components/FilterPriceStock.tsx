@@ -1,16 +1,14 @@
-import { ChangeEvent, useState, useEffect, useCallback } from 'react';
+import { ChangeEvent, useState, useEffect, useCallback, useContext } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { IProducts, products } from '../carBase';
 import { debounce } from 'lodash';
+import { AppContext } from '../appContext';
 
-type ProductsShow = {
-  productsShow: IProducts[];
-};
-
-export function FilterRange(props: ProductsShow) {
+export function FilterRange() {
   const [priceTitle, setPriceTitle] = useState('Price');
   const [stockTitle, setStockTitle] = useState('Stock');
   const idList = ['minPrice', 'maxPrice', 'minStock', 'maxStock'];
+  const { visibleCars } = useContext(AppContext);
 
   function maxminGet(prodArr: IProducts[]) {
     let maxPrice = 0;
@@ -20,8 +18,6 @@ export function FilterRange(props: ProductsShow) {
     if (prodArr.length === 0) {
       return [70, 200000, 1, 110];
     }
-    // priceTitle = 'Price';
-    // stockTitle = 'Stock';
     prodArr.forEach((item) => {
       if (item.price > maxPrice) {
         maxPrice = item.price;
@@ -39,21 +35,14 @@ export function FilterRange(props: ProductsShow) {
         minStock = item.stock;
       }
     });
-    // console.log([minPrice, maxPrice, minStock, maxStock]);
     return [minPrice, maxPrice, minStock, maxStock];
   }
 
   const initValues = maxminGet(products);
-  // console.log(initValues);
   const [values, setValues] = useState(initValues);
-
   const [searchParams, setSearchParams] = useSearchParams();
-  // if (searchParams.toString().length !== 0) {
-  //   setValues(queryToValues());
-  // }
 
   const queryToValues = () => {
-    // console.log(3);
     const valPrice = searchParams.get('priceFilt');
     const valStock = searchParams.get('stockFilt');
     if (!valPrice && !valStock) {
@@ -107,33 +96,30 @@ export function FilterRange(props: ProductsShow) {
 
   const [catQuery, setCatQuery] = useState(searchParams.get('cat'));
   const [brandQuery, setBrandQuery] = useState(searchParams.get('brand'));
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('search'));
 
   useEffect(() => {
-    setValues(queryToValues());
-    // console.log('brand');
-    const catQueryNew = searchParams.get('cat');
-    const brandQueryNew = searchParams.get('brand');
-    if (catQuery !== catQueryNew || brandQuery !== brandQueryNew) {
-      setCatQuery(catQueryNew);
-      setBrandQuery(brandQueryNew);
-      if (props.productsShow.length !== 0) {
-        setValues(maxminGet(props.productsShow));
-      }
-    } else {
-      setValues(queryToValues());
-    }
-  }, [searchParams]);
-
-  useEffect(() => {
-    // console.log(props.productsShow.length);
-    if (props.productsShow.length === 0) {
+    if (visibleCars.length === 0) {
       setPriceTitle('Not Found');
       setStockTitle('Not Found');
     } else {
       setPriceTitle('Price');
       setStockTitle('Stock');
     }
-  }, [props.productsShow]);
+    const catQueryNew = searchParams.get('cat');
+    const brandQueryNew = searchParams.get('brand');
+    const searchQueryNew = searchParams.get('search');
+    if (catQuery !== catQueryNew || brandQuery !== brandQueryNew || searchQuery !== searchQueryNew) {
+      setCatQuery(catQueryNew);
+      setBrandQuery(brandQueryNew);
+      setSearchQuery(searchQueryNew);
+      if (visibleCars.length !== 0) {
+        setValues(maxminGet(visibleCars));
+      }
+    } else {
+      setValues(queryToValues());
+    }
+  }, [visibleCars]);
 
   return (
     <div>
