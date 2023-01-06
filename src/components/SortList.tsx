@@ -14,7 +14,11 @@ const SortList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const onClickListItem = (i: number) => {
-    searchParams.set('sort', JSON.stringify(i));
+    if (i > 0) {
+      searchParams.set('sort', JSON.stringify(i));
+    } else {
+      searchParams.delete('sort');
+    }
     setSearchParams(searchParams);
   };
 
