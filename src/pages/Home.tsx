@@ -145,7 +145,6 @@ export function Home(props: homeProps) {
       setNumCarCards(currRef.childNodes.length);
       const nodes = currRef.children;
       const visCars: IProducts[] = [];
-      console.log(nodes[1]);
       for (let i = 0; i < nodes.length; i += 1) {
         visCars.push(products[+nodes[i].id.slice(3, 5) - 1]);
       }

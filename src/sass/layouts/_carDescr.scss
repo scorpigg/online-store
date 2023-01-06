@@ -13,15 +13,6 @@
   display: inline-flex;
   align-items: center;
 
-  // &::after {
-  //   content: '';
-  //   position: absolute;
-  //   left: 400px;
-  //   height: 100%;
-  //   width: 1px;
-  //   border-right: 1px solid $color-border;
-  // }
-
   .carDescr_arrow {
     width: 35px;
     height: 35px;
@@ -67,7 +58,6 @@
 .carDescr__img {
   min-width: 400px;
   min-height: 300px;
-  // margin-right: 25px;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
