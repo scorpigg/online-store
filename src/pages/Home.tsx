@@ -126,7 +126,8 @@ export function Home() {
   };
 
   const clearInput = () => {
-    searchParams.set('search', '');
+    // searchParams.set('search', '');
+    searchParams.delete('search');
     setSearchParams(searchParams);
   };
 
