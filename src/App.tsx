@@ -99,6 +99,17 @@ function App() {
     setModalClose(!modalClose);
   };
 
+  const [addDiscount, setAddDiscount] = useState(false);
+  const [addRSDiscount, setAddRSDiscount] = useState(false);
+
+  const onAddDiscount = () => {
+    setAddDiscount(!addDiscount);
+  };
+
+  const onAddRSDiscount = () => {
+    setAddRSDiscount(!addRSDiscount);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -114,6 +125,10 @@ function App() {
         modalClose,
         visibleCars,
         setVisibleCars,
+        addDiscount,
+        onAddDiscount,
+        addRSDiscount,
+        onAddRSDiscount,
       }}
     >
       <div className="wrapper">
