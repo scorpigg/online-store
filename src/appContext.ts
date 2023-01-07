@@ -14,6 +14,10 @@ interface IAppContext {
   modalClose: boolean;
   visibleCars: IProducts[];
   setVisibleCars: (arr: IProducts[]) => void;
+  addDiscount: boolean;
+  onAddDiscount: () => void;
+  addRSDiscount: boolean;
+  onAddRSDiscount: () => void;
 }
 
 export const AppContext = createContext<IAppContext>({} as IAppContext);

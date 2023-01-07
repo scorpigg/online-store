@@ -9,7 +9,19 @@ interface ICartProps {
 }
 
 export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
-  const { cartItems, itemsCount, onCartSubmit, isCartSubmit, buyModalClose, modalClose } = useContext(AppContext);
+  const {
+    cartItems,
+    itemsCount,
+    onCartSubmit,
+    isCartSubmit,
+    buyModalClose,
+    modalClose,
+    addDiscount,
+    onAddDiscount,
+    addRSDiscount,
+    onAddRSDiscount,
+  } = useContext(AppContext);
+
   const totalPrice = cartItems.reduce((acc, el) => acc + el.price * el.count, 0);
   const totalPriceWithDiscount = Math.round(
     cartItems.reduce(
@@ -20,14 +32,25 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
       0
     )
   );
-  const totalDiscount = Math.round(100 - (totalPriceWithDiscount * 100) / totalPrice);
+  const RS_DISCOUNT_PERCENT = 10;
+  const carDiscountPercent = Math.round(100 - (totalPriceWithDiscount * 100) / totalPrice);
+  const totalPriceWithRsDiscount = totalPrice - (totalPrice * RS_DISCOUNT_PERCENT) / 100;
+
+  const getTotalDiscount = () => {
+    if (addDiscount && addRSDiscount) {
+      return totalPrice - (totalPrice - totalPriceWithDiscount + (totalPrice - totalPriceWithRsDiscount));
+    }
+
+    if (addDiscount) {
+      return totalPriceWithDiscount;
+    }
+
+    if (addRSDiscount) {
+      return totalPriceWithRsDiscount;
+    }
+  };
 
   const [promoText, setPromoText] = useState('');
-  const [addDiscount, setAddDiscount] = useState(false);
-
-  const onAddDiscount = () => {
-    setAddDiscount(!addDiscount);
-  };
 
   const onChangePromoInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPromoText(event.target.value);
@@ -325,15 +348,39 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
         <p className="cart-summary__products">
           Products: <span>{itemsCount}</span>
         </p>
-        {addDiscount ? (
+        {addDiscount || addRSDiscount ? (
           <p className="cart-summary__total-price">
             <span className="cart-summary__first-price">Total price: &euro;{totalPrice}</span>
-            <span>Total price: &euro;{totalPriceWithDiscount}</span>
+            <span>
+              Total price: &euro;
+              {getTotalDiscount()}
+            </span>
           </p>
         ) : (
           <p className="cart-summary__total-price">
             <span>Total price: &euro;{totalPrice}</span>
           </p>
+        )}
+        {(addDiscount || addRSDiscount) && (
+          <div className="cart-summary__applied-discounts">
+            <h4>Applied codes:</h4>
+            {addDiscount && (
+              <div className="cart-summary__discount personal-discount">
+                <span>Personal discount - {carDiscountPercent}%</span>
+                <button onClick={onAddDiscount} className="cart-summary__discount-btn btn">
+                  {addDiscount ? 'Drop' : 'Add'}
+                </button>
+              </div>
+            )}
+            {addRSDiscount && (
+              <div className="cart-summary__discount">
+                <span>RS discount - {RS_DISCOUNT_PERCENT}%</span>
+                <button onClick={onAddRSDiscount} className="cart-summary__discount-btn btn">
+                  {addRSDiscount ? 'Drop' : 'Add'}
+                </button>
+              </div>
+            )}
+          </div>
         )}
 
         <input
@@ -343,15 +390,23 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
           className="cart-summary__promo"
           placeholder="Enter promo code"
         />
-        {promoText === 'RS' && (
+        {promoText === 'CAR' && !addDiscount && (
           <div className="cart-summary__discount">
-            <span>Your discount is {totalDiscount}%</span>
+            <span>Personal discount - {carDiscountPercent}%</span>
             <button onClick={onAddDiscount} className="cart-summary__discount-btn btn">
               {addDiscount ? 'Drop' : 'Add'}
             </button>
           </div>
         )}
-        <span className="cart-summary__promo-text">Promo for test: 'RS'</span>
+        {promoText === 'RS' && !addRSDiscount && (
+          <div className="cart-summary__discount">
+            <span>RS discount - {RS_DISCOUNT_PERCENT}%</span>
+            <button onClick={onAddRSDiscount} className="cart-summary__discount-btn btn">
+              {addRSDiscount ? 'Drop' : 'Add'}
+            </button>
+          </div>
+        )}
+        <span className="cart-summary__promo-text">Promo for test: 'RS', 'CAR'</span>
         <button onClick={buyModalClose} className="cart-summary__buy-btn btn">
           Buy now
         </button>
