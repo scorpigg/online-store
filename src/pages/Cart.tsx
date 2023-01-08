@@ -247,18 +247,30 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
   const lastPageIndex = +cartQueryPage * +cartQueryLimit;
   const firstPageIndex = lastPageIndex - +cartQueryLimit;
   const currentItems = cartItems.slice(firstPageIndex, lastPageIndex);
+  const pagesCount = Math.ceil(cartItems.length / (+cartQueryLimit || 1));
+
+  useEffect(() => {
+    if (pagesCount < +cartQueryPage && pagesCount) {
+      searchParams.set('page', pagesCount.toString());
+      setSearchParams(searchParams);
+    }
+  }, [cartQueryPage, pagesCount, searchParams, setSearchParams]);
 
   const handleLimit = (event: React.ChangeEvent<HTMLInputElement>) => {
     let value = event.target.value;
     if (+value > cartItems.length) {
       value = cartItems.length.toString();
     }
+    if (+value < 1) {
+      value = '';
+    }
+
     searchParams.set('limit', value);
     setSearchParams(searchParams);
   };
 
   const increasePage = () => {
-    if (Math.ceil(cartItems.length / +cartQueryLimit) <= +cartQueryPage) {
+    if (pagesCount <= +cartQueryPage) {
       searchParams.set('page', cartQueryPage);
     } else if (!+cartQueryLimit) {
       searchParams.set('page', '1');
@@ -302,7 +314,9 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
             <button onClick={decreasePage} className="cart-items__prev-page">
               &lt;
             </button>
-            <span className="cart-items__current-page">{cartQueryPage}</span>
+            <span className="cart-items__current-page">
+              {cartQueryPage}/{pagesCount}
+            </span>
             <button onClick={increasePage} className="cart-items-next-page">
               &gt;
             </button>
