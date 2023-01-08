@@ -21,6 +21,10 @@ export function CarDescription() {
   const item = products.find((el) => el.id === itemId);
   const navigate = useNavigate();
 
+  if (!item) {
+    navigate('/NotFound');
+  }
+
   const addToCartHandler = () => {
     if (item) {
       onAddCartItem(item);

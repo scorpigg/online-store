@@ -5,9 +5,13 @@ export function NotFound() {
   let arrHref = href.split('?');
   arrHref = arrHref[0].split('/');
   let hrefText = arrHref[arrHref.length - 1];
-  const hrefTextArr = hrefText.split('');
-  if (hrefTextArr.length > 9) {
-    hrefText = hrefTextArr.splice(0, 7).join('') + '...';
+  if (!hrefText || hrefText === 'NotFound') {
+    hrefText = 'such page';
+  } else {
+    const hrefTextArr = hrefText.split('');
+    if (hrefTextArr.length > 9) {
+      hrefText = hrefTextArr.splice(0, 7).join('') + '...';
+    }
   }
 
   return (
