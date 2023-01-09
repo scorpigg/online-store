@@ -96,10 +96,10 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
 
   const nameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    const re = /[a-zA-Z] [a-zA-Z]/;
+    const re = /[A-Z]{1}[a-z]{2,} [A-Z]{1}[a-z]{2,}/;
 
     if (!re.test(value)) {
-      setNameError('Enter correct data (name surname)');
+      setNameError('Enter correct data (Name Surname)');
     } else {
       setNameError('');
     }
@@ -174,7 +174,12 @@ export function Cart({ onIncreaseItemCount, onDecreaseItemCount }: ICartProps) {
     let value = event.target.value;
 
     if (value.length <= 5) {
-      if (+value[0] > 1 || (+value[0] !== 0 && +value[1] > 2)) {
+      if (
+        +value[0] > 1 ||
+        +value[2] < 2 ||
+        (+value[0] !== 0 && +value[1] > 2) ||
+        (+value[0] === 0 && +value[1] === 0)
+      ) {
         value = '';
       } else {
         setCardValidity(
