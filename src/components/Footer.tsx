@@ -6,7 +6,7 @@ export function Footer() {
       <div className="footer__left">
         <ul>
           <li>
-            <img src="img/logo-github.svg" alt="logo github" width="22" height="22" />
+            <img src="/img/logo-github.svg" alt="logo github" width="22" height="22" />
             <span className="footer__author">
               <a href="https://github.com/scorpigg" target="_blank" rel="noreferrer">
                 Andrey Nikitin
@@ -14,7 +14,7 @@ export function Footer() {
             </span>
           </li>
           <li>
-            <img src="img/logo-github.svg" alt="logo github" width="22" height="22" />
+            <img src="/img/logo-github.svg" alt="logo github" width="22" height="22" />
             <span className="footer__author">
               <a href="https://github.com/istairina" target="_blank" rel="noreferrer">
                 Irina Migunova
@@ -28,7 +28,7 @@ export function Footer() {
       </div>
       <div className="footer__center">
         <a href="https://rs.school/js/" target="_blank" rel="noreferrer">
-          <img src="img/logo-rss.svg" alt="logo rss" width="121" height="45" />
+          <img src="/img/logo-rss.svg" alt="logo rss" width="121" height="45" />
         </a>
       </div>
     </footer>

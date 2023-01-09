@@ -15,7 +15,7 @@ export function Card(props: IProducts) {
     const target = e.target as Element;
 
     if (!target.closest('button')) {
-      navigate('car-description/' + id);
+      navigate('/car-description/' + id);
     }
   };
 
