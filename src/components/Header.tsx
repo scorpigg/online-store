@@ -9,7 +9,7 @@ export function Header() {
     <header>
       <div className="header__left">
         <Link to="/">
-          <img src="img/logo.svg" alt="logo" width="121" height="37"></img>
+          <img src="/img/logo.svg" alt="logo" width="121" height="37"></img>
         </Link>
         <div className="header__info">
           <h3>
