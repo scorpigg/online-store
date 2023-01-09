@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../appContext';
 import { IProducts, products } from '../carBase';
@@ -21,9 +21,11 @@ export function CarDescription() {
   const item = products.find((el) => el.id === itemId);
   const navigate = useNavigate();
 
-  if (!item) {
-    navigate('/NotFound');
-  }
+  useEffect(() => {
+    if (!item) {
+      navigate('/NotFound');
+    }
+  });
 
   const addToCartHandler = () => {
     if (item) {
