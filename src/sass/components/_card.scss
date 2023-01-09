@@ -1,0 +1,108 @@
+.card {
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  padding-top: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  transition: box-shadow 0.15s linear;
+
+  &:hover {
+    box-shadow: 0px 10px 10px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  &:hover:before {
+    top: 0;
+  }
+
+  &:before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    content: 'Click for more information';
+    position: absolute;
+    top: -15%;
+    left: 0;
+    width: 100%;
+    height: 15%;
+    background-color: rgba(0, 0, 0, 0.4);
+    text-align: center;
+    color: $color-light;
+    z-index: 1;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    @extend %transition;
+  }
+}
+
+.card__img {
+  position: relative;
+  min-height: 150px;
+  margin-bottom: 15px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid $color-border;
+  }
+}
+
+.card__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: auto;
+}
+
+.card__title {
+  font-size: 1.6rem;
+  line-height: 2rem;
+}
+
+.card__price {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+
+  .price-text {
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    text-transform: uppercase;
+    color: #bdbdbd;
+    margin-right: 5px;
+  }
+
+  .price-value {
+    display: flex;
+    flex-wrap: wrap;
+    font-weight: 700;
+  }
+}
+
+.card__add-to-cart {
+  width: 32px;
+  height: 32px;
+  background-image: url('../../../public/img/btn-add.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  cursor: pointer;
+  @extend %transition;
+
+  &:hover {
+    background-image: url('../../../public/img/btn-add-active.svg');
+  }
+}

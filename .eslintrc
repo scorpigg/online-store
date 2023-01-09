@@ -1,0 +1,15 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": ["react-app", "react-app/jest"],
+  "rules": {
+    "no-debugger": "off",
+    "no-console": "warn",
+    "class-methods-use-this": "off",
+    "no-unused-vars": "error",
+    "quotes": ["error", "single"],
+    "jsx-quotes": ["error", "prefer-double"],
+    "prefer-const": "error",
+    "max-len": ["error", { "code": 120 }],
+    "@typescript-eslint/no-explicit-any": 2
+  }
+}

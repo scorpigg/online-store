@@ -1,0 +1,20 @@
+.wrapper {
+  max-width: $desktop-width;
+  margin: 20px auto;
+  padding: 20px;
+  background: $color-light;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+
+  // @include media-laptop {
+  //   max-width: $laptop-width;
+  // }
+
+  // @include media-tablet {
+  //   max-width: $tablet-width;
+  // }
+
+  // @include media-mobile {
+  //   max-width: $mobile-width;
+  // }
+}

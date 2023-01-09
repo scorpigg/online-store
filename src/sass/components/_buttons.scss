@@ -1,0 +1,43 @@
+.btn {
+  width: 100%;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #89f09c 0%, #3cc755 100%);
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: $color-light;
+  font-weight: 500;
+  @extend %transition;
+
+  &:hover {
+    background: linear-gradient(180deg, #64ef7d 0%, #2b943e 100%);
+  }
+}
+
+.filter__btn-reset {
+  margin-bottom: 15px;
+}
+
+.cart-summary__buy-btn {
+  width: 50%;
+}
+
+.cart-summary__discount-btn {
+  width: 50px;
+  height: 25px;
+  font-size: 1.4rem;
+}
+
+.btn-submit {
+  width: 40%;
+
+  &:disabled {
+    cursor: no-drop;
+    background: $color-text-additional-light;
+  }
+}
